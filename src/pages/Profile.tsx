@@ -1,7 +1,6 @@
 
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/lib/supabase';
 import DashboardLayout from '@/components/DashboardLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,16 +9,8 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
 
-interface Profile {
-  id: string;
-  full_name: string;
-  email: string;
-  phone: string;
-}
-
 const Profile = () => {
   const { user } = useAuth();
-  const [profile, setProfile] = useState<Profile | null>(null);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -28,33 +19,14 @@ const Profile = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        if (!user) return;
-
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-
-        if (error) {
-          console.error('Error fetching profile:', error);
-          return;
-        }
-
-        setProfile(data);
-        setFullName(data.full_name || '');
-        setEmail(data.email || '');
-        setPhone(data.phone || '');
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
+    if (user) {
+      // Get user metadata from the auth user
+      const userData = user.user_metadata;
+      setFullName(userData?.full_name || '');
+      setEmail(user.email || '');
+      setPhone(userData?.phone || '');
+      setLoading(false);
+    }
   }, [user]);
 
   const handleSaveProfile = async (e: React.FormEvent) => {
@@ -65,16 +37,13 @@ const Profile = () => {
     try {
       setSaving(true);
       
-      // Update profile record
-      const { error } = await supabase
-        .from('profiles')
-        .update({
+      // Update user metadata
+      const { error } = await supabase.auth.updateUser({
+        data: {
           full_name: fullName,
-          email: email,
-          phone: phone,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', user.id);
+          phone: phone
+        }
+      });
         
       if (error) {
         throw error;
@@ -143,7 +112,9 @@ const Profile = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled
                 />
+                <p className="text-sm text-muted-foreground">Email cannot be changed</p>
               </div>
               
               <div className="space-y-2">

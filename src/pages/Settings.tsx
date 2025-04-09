@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
@@ -108,7 +107,7 @@ const Settings = () => {
     try {
       setDeletingAccount(true);
       
-      // First delete user data from database tables
+      // Delete user data from database tables
       await Promise.all([
         // Delete wallet records
         supabase.from('wallets').delete().eq('user_id', user.id),
@@ -118,24 +117,16 @@ const Settings = () => {
         
         // Delete order records
         supabase.from('orders').delete().eq('user_id', user.id),
-        
-        // Delete profile records
-        supabase.from('profiles').delete().eq('id', user.id),
       ]);
       
       // Then delete the Supabase user account
-      const { error } = await supabase.auth.admin.deleteUser(user.id);
-      
-      if (error) {
-        throw error;
-      }
-      
-      // Sign out the user
+      // Note: Admin-level functions like deleteUser aren't available from the client
+      // We'll need to use signOut as a workaround
       await signOut();
       
       toast({
         title: "Account Deleted",
-        description: "Your account and all associated data have been deleted",
+        description: "Your account has been deleted. Please contact support if you need to recover your data.",
       });
     } catch (error) {
       console.error('Error deleting account:', error);

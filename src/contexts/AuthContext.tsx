@@ -81,13 +81,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = async (email: string, password: string, fullName: string, phone: string) => {
     try {
-      // Step 1: Sign up the user
+      // Sign up the user with metadata
       const { data, error } = await supabase.auth.signUp({ 
         email, 
         password,
         options: {
           data: {
             full_name: fullName,
+            phone: phone
           }
         }
       });
@@ -101,23 +102,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw error;
       }
       
-      // Step 2: If successful, create a profile and wallet entry for the user
+      // Create wallet with default balance of 0
       if (data.user) {
-        // Create profile
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert({
-            id: data.user.id,
-            full_name: fullName,
-            email: email,
-            phone: phone,
-          });
-          
-        if (profileError) {
-          console.error('Error creating profile:', profileError);
-        }
-        
-        // Create wallet with default balance of 0
         const { error: walletError } = await supabase
           .from('wallets')
           .insert({
