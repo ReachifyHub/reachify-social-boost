@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
-import { Facebook, Instagram, Twitter, TiktokIcon } from 'lucide-react';
+import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 // Custom TikTok icon since it's not in lucide-react
 const TikTok = () => (
