@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,24 +16,30 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, signOut } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const navigation = [
+  // Public navigation links - visible to all users
+  const publicNavigation = [
     { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Pricing', href: '/pricing' },
     { name: 'About', href: '/about' }
   ];
 
+  // Protected navigation links - only visible to authenticated users
   const authedNavigation = [
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Services', href: '/services' },
     { name: 'Orders', href: '/orders' },
     { name: 'Wallet', href: '/wallet' }
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   const activeLink = "text-primary font-medium";
   const inactiveLink = "text-gray-700 hover:text-primary transition-colors";
@@ -52,25 +58,27 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
-            {user
-              ? authedNavigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={location.pathname === item.href ? activeLink : inactiveLink}
-                  >
-                    {item.name}
-                  </Link>
-                ))
-              : navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={location.pathname === item.href ? activeLink : inactiveLink}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+            {/* All users see the public navigation */}
+            {publicNavigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={location.pathname === item.href ? activeLink : inactiveLink}
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            {/* Only authenticated users see protected routes */}
+            {user && authedNavigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={location.pathname === item.href ? activeLink : inactiveLink}
+              >
+                {item.name}
+              </Link>
+            ))}
             
             {user ? (
               <div className="flex items-center">
@@ -88,7 +96,7 @@ const Navbar = () => {
                       <Link to="/settings" className="w-full">Settings</Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => signOut()}>
+                    <DropdownMenuItem onClick={handleSignOut}>
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>Logout</span>
                     </DropdownMenuItem>
@@ -128,31 +136,33 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {user
-              ? authedNavigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`${
-                      location.pathname === item.href ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'
-                    } block px-3 py-2 rounded-md text-base font-medium`}
-                    onClick={toggleMenu}
-                  >
-                    {item.name}
-                  </Link>
-                ))
-              : navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`${
-                      location.pathname === item.href ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'
-                    } block px-3 py-2 rounded-md text-base font-medium`}
-                    onClick={toggleMenu}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+            {/* Always show public navigation */}
+            {publicNavigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`${
+                  location.pathname === item.href ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'
+                } block px-3 py-2 rounded-md text-base font-medium`}
+                onClick={toggleMenu}
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            {/* Only show protected routes to authenticated users */}
+            {user && authedNavigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`${
+                  location.pathname === item.href ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'
+                } block px-3 py-2 rounded-md text-base font-medium`}
+                onClick={toggleMenu}
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
           <div className="pt-4 pb-3 border-t border-gray-200">
             {user ? (
@@ -173,7 +183,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={() => {
-                    signOut();
+                    handleSignOut();
                     toggleMenu();
                   }}
                   className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"

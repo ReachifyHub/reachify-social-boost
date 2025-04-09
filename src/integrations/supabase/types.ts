@@ -9,7 +9,116 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      orders: {
+        Row: {
+          created_at: string
+          id: number
+          link: string
+          quantity: number
+          service_id: number
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          link: string
+          quantity: number
+          service_id: number
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          link?: string
+          quantity?: number
+          service_id?: number
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      services: {
+        Row: {
+          created_at: string
+          description: string
+          id: number
+          name: string
+          platform: string
+          price: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: number
+          name: string
+          platform: string
+          price: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: number
+          name?: string
+          platform?: string
+          price?: number
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          id: number
+          type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: number
+          type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: number
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallets: {
+        Row: {
+          balance: number
+          created_at: string
+          id: number
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          id?: number
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          id?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
