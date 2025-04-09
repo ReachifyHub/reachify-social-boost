@@ -43,6 +43,10 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Define brand colors */
+    --brand-blue: 212 96% 49%;
+    --brand-purple: 261 51% 75%;
   }
 
   .dark {
@@ -96,7 +100,7 @@
 
 @layer components {
   .hero-gradient {
-    @apply bg-gradient-to-r from-brand-blue to-brand-purple;
+    @apply bg-gradient-to-r from-blue-600 to-purple-500;
   }
   
   .card-hover {
