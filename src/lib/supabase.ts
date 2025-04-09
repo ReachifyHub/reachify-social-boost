@@ -138,7 +138,34 @@ export interface Database {
 }
 
 // Create a single supabase client for the entire app
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+// Check if the required environment variables are set
+if (!supabaseUrl || !supabaseKey) {
+  console.error("Supabase configuration is missing. Please check your environment variables.");
+  
+  // Display a more user-friendly message to the console for debugging
+  console.log(`
+    Supabase integration requires the following environment variables:
+    - VITE_SUPABASE_URL: The URL of your Supabase project
+    - VITE_SUPABASE_ANON_KEY: The anonymous/public API key for your Supabase project
+    
+    Please connect your project to Supabase using the green Supabase button in the top right corner.
+  `);
+}
+
+// Use fallback values if environment variables are missing (these won't work in production)
+const fallbackUrl = "https://placeholder-url.supabase.co";
+const fallbackKey = "placeholder-key";
+
+// Create the Supabase client with the real values if available, or fallbacks for development
+export const supabase = createClient<Database>(
+  supabaseUrl || fallbackUrl,
+  supabaseKey || fallbackKey
+);
+
+// Export a helper function to check if Supabase is properly configured
+export const isSupabaseConfigured = () => {
+  return !!supabaseUrl && !!supabaseKey;
+};
