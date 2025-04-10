@@ -242,7 +242,7 @@ const Services = () => {
       
       // Close dialog and reset fields
       setDialogOpen(false);
-      setQuantity(1);
+      setQuantity(1000);
       setLink('');
       
       // Navigate to orders page
@@ -317,10 +317,10 @@ const Services = () => {
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
             <TabsList className={`${isMobile ? 'w-full grid grid-cols-5' : ''}`}>
               <TabsTrigger value="all" className={`${isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
-              <TabsTrigger value="facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
-              <TabsTrigger value="instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
-              <TabsTrigger value="twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
-              <TabsTrigger value="tiktok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
+              <TabsTrigger value="Facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
+              <TabsTrigger value="Instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
+              <TabsTrigger value="Twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
+              <TabsTrigger value="TikTok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
             </TabsList>
             <div className="text-xs sm:text-sm text-muted-foreground">
               Wallet Balance: <span className="font-semibold text-primary">₦{walletBalance.toFixed(2)}</span>
@@ -329,16 +329,16 @@ const Services = () => {
           <TabsContent value="all" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="facebook" className="mt-4 sm:mt-6">
+          <TabsContent value="Facebook" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="instagram" className="mt-4 sm:mt-6">
+          <TabsContent value="Instagram" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="twitter" className="mt-4 sm:mt-6">
+          <TabsContent value="Twitter" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="tiktok" className="mt-4 sm:mt-6">
+          <TabsContent value="TikTok" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
         </Tabs>
@@ -377,7 +377,7 @@ const Services = () => {
                 <Input 
                   id="quantity"
                   type="number"
-                  min="1"
+                  min="100"
                   value={quantity}
                   onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
                   className="text-center"
@@ -444,25 +444,25 @@ const Services = () => {
           <div className="flex justify-center mb-6 sm:mb-8 overflow-x-auto">
             <TabsList className={`${isMobile ? 'grid grid-cols-5 w-full' : ''}`}>
               <TabsTrigger value="all" className={`${isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
-              <TabsTrigger value="facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
-              <TabsTrigger value="instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
-              <TabsTrigger value="twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
-              <TabsTrigger value="tiktok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
+              <TabsTrigger value="Facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
+              <TabsTrigger value="Instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
+              <TabsTrigger value="Twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
+              <TabsTrigger value="TikTok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
             </TabsList>
           </div>
           <TabsContent value="all" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="facebook" className="mt-4 sm:mt-6">
+          <TabsContent value="Facebook" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="instagram" className="mt-4 sm:mt-6">
+          <TabsContent value="Instagram" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="twitter" className="mt-4 sm:mt-6">
+          <TabsContent value="Twitter" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="tiktok" className="mt-4 sm:mt-6">
+          <TabsContent value="TikTok" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
         </Tabs>
