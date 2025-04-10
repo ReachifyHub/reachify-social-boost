@@ -111,8 +111,8 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-400 text-center">
             &copy; {new Date().getFullYear()} Reachify Promotions. Services are for social proof only. We comply with platform guidelines.  
-[Powered by Vercel] (link to https://vercel.com)  
-Lightning-fast & secure delivery  
+                [Powered by Vercel] 
+             Lightning-fast & secure delivery  
           </p>
         </div>
       </div>
