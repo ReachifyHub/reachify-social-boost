@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Facebook, Instagram, Twitter } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Custom TikTok icon since it's not in lucide-react
 const TikTok = () => (
@@ -25,28 +26,30 @@ const TikTok = () => (
 );
 
 const Index = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-hero-gradient text-white py-16 md:py-24">
+      <section className="bg-hero-gradient text-white py-10 sm:py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
                 Boost Your Social Media Presence
               </h1>
-              <p className="text-lg mb-8">
+              <p className="text-base sm:text-lg mb-6 sm:mb-8">
                 Get more likes, followers, and engagement with our premium social media promotion services.
                 Affordable, reliable, and fast results guaranteed.
               </p>
-              <div className="flex space-x-4">
-                <Link to="/signup">
-                  <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                <Link to="/signup" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full sm:w-auto bg-white text-primary hover:bg-gray-100">
                     Get Started
                   </Button>
                 </Link>
-                <Link to="/services">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                <Link to="/services" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10">
                     Browse Services
                   </Button>
                 </Link>
@@ -78,20 +81,20 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
+      <section className="py-10 sm:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">Why Choose Reachify Promotions?</h2>
-            <p className="mt-4 text-lg text-gray-600">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Why Choose Reachify Promotions?</h2>
+            <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600">
               We offer comprehensive social media promotion services to help you grow your online presence.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 card-hover">
-              <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+            <div className="bg-white p-5 sm:p-6 rounded-lg shadow-sm border border-gray-100 card-hover">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                 <svg
-                  className="h-6 w-6 text-primary"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-primary"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -105,16 +108,16 @@ const Index = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Fast Delivery</h3>
-              <p className="mt-2 text-gray-600">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900">Fast Delivery</h3>
+              <p className="mt-2 text-sm sm:text-base text-gray-600">
                 Get results quickly with our efficient promotion services, often starting within minutes of your order.
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 card-hover">
-              <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-white p-5 sm:p-6 rounded-lg shadow-sm border border-gray-100 card-hover">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                 <svg
-                  className="h-6 w-6 text-brand-purple"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-brand-purple"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -128,16 +131,16 @@ const Index = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Secure Payments</h3>
-              <p className="mt-2 text-gray-600">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900">Secure Payments</h3>
+              <p className="mt-2 text-sm sm:text-base text-gray-600">
                 Your financial information is always protected with our secure wallet system and payment processing.
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 card-hover">
-              <div className="h-12 w-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-white p-5 sm:p-6 rounded-lg shadow-sm border border-gray-100 card-hover">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                 <svg
-                  className="h-6 w-6 text-green-600"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-green-600"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -151,8 +154,8 @@ const Index = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Quality Guarantee</h3>
-              <p className="mt-2 text-gray-600">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900">Quality Guarantee</h3>
+              <p className="mt-2 text-sm sm:text-base text-gray-600">
                 We guarantee the quality of our services, providing authentic engagement from real accounts.
               </p>
             </div>
@@ -161,65 +164,65 @@ const Index = () => {
       </section>
 
       {/* Platforms Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-10 sm:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">Supported Platforms</h2>
-            <p className="mt-4 text-lg text-gray-600">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Supported Platforms</h2>
+            <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600">
               We offer comprehensive promotion services across all major social media platforms.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center card-hover">
-              <div className="h-16 w-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Facebook className="h-8 w-8 text-white" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100 text-center card-hover">
+              <div className="h-12 w-12 sm:h-16 sm:w-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <Facebook className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Facebook</h3>
-              <p className="mt-2 text-sm text-gray-600">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900">Facebook</h3>
+              <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">
                 Likes, Followers, Comments, Shares
               </p>
               <Link to="/services?platform=facebook">
-                <Button variant="link" className="mt-4">View Services</Button>
+                <Button variant="link" className="mt-2 sm:mt-4 text-sm sm:text-base">View Services</Button>
               </Link>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center card-hover">
-              <div className="h-16 w-16 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Instagram className="h-8 w-8 text-white" />
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100 text-center card-hover">
+              <div className="h-12 w-12 sm:h-16 sm:w-16 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <Instagram className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Instagram</h3>
-              <p className="mt-2 text-sm text-gray-600">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900">Instagram</h3>
+              <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">
                 Followers, Likes, Comments, Views
               </p>
               <Link to="/services?platform=instagram">
-                <Button variant="link" className="mt-4">View Services</Button>
+                <Button variant="link" className="mt-2 sm:mt-4 text-sm sm:text-base">View Services</Button>
               </Link>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center card-hover">
-              <div className="h-16 w-16 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Twitter className="h-8 w-8 text-white" />
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100 text-center card-hover">
+              <div className="h-12 w-12 sm:h-16 sm:w-16 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <Twitter className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Twitter</h3>
-              <p className="mt-2 text-sm text-gray-600">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900">Twitter</h3>
+              <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">
                 Followers, Retweets, Likes
               </p>
               <Link to="/services?platform=twitter">
-                <Button variant="link" className="mt-4">View Services</Button>
+                <Button variant="link" className="mt-2 sm:mt-4 text-sm sm:text-base">View Services</Button>
               </Link>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center card-hover">
-              <div className="h-16 w-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100 text-center card-hover">
+              <div className="h-12 w-12 sm:h-16 sm:w-16 bg-black rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <TikTok />
               </div>
-              <h3 className="text-lg font-medium text-gray-900">TikTok</h3>
-              <p className="mt-2 text-sm text-gray-600">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900">TikTok</h3>
+              <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">
                 Followers, Likes, Views, Shares
               </p>
               <Link to="/services?platform=tiktok">
-                <Button variant="link" className="mt-4">View Services</Button>
+                <Button variant="link" className="mt-2 sm:mt-4 text-sm sm:text-base">View Services</Button>
               </Link>
             </div>
           </div>
@@ -227,10 +230,10 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 bg-primary">
+      <section className="py-8 sm:py-12 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Boost Your Social Media Presence?</h2>
-          <p className="text-white text-lg mb-8 max-w-3xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Ready to Boost Your Social Media Presence?</h2>
+          <p className="text-white text-base sm:text-lg mb-6 sm:mb-8 max-w-3xl mx-auto">
             Join thousands of content creators, businesses, and influencers who are already growing their audience with Reachify Promotions.
           </p>
           <Link to="/signup">

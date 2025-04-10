@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -10,6 +9,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 import { Facebook, Instagram, Twitter, DollarSign } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Dialog,
   DialogContent,
@@ -42,6 +42,11 @@ const TikTok = () => (
   </svg>
 );
 
+// Custom Naira icon component
+const NairaIcon = () => (
+  <span className="text-lg font-bold mr-0.5">₦</span>
+);
+
 const platformIcons: Record<string, JSX.Element> = {
   facebook: <Facebook className="h-5 w-5" />,
   instagram: <Instagram className="h-5 w-5" />,
@@ -72,6 +77,7 @@ const Services = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const defaultTab = searchParams.get('platform') || 'all';
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -256,27 +262,27 @@ const Services = () => {
   const ServiceList = () => (
     <>
       {loading ? (
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Loading services...</p>
+        <div className="text-center py-8 sm:py-12">
+          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-sm sm:text-base text-muted-foreground">Loading services...</p>
         </div>
       ) : filteredServices.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredServices.map((service) => (
             <Card key={service.id} className="card-hover">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">{service.name}</CardTitle>
-                  <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
+                  <CardTitle className="text-base sm:text-lg">{service.name}</CardTitle>
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gray-100 flex items-center justify-center">
                     {platformIcons[service.platform]}
                   </div>
                 </div>
                 <CardDescription>{service.platform.charAt(0).toUpperCase() + service.platform.slice(1)}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 min-h-[60px]">{service.description}</p>
-                <div className="mt-4 flex items-center text-2xl font-bold text-primary">
-                  <DollarSign className="h-5 w-5" />
+                <p className="text-xs sm:text-sm text-gray-600 min-h-[40px] sm:min-h-[60px]">{service.description}</p>
+                <div className="mt-3 sm:mt-4 flex items-center text-xl sm:text-2xl font-bold text-primary">
+                  <NairaIcon />
                   {service.price.toFixed(2)}
                 </div>
                 <p className="text-xs text-muted-foreground">per unit</p>
@@ -290,8 +296,8 @@ const Services = () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">No services found for this platform.</p>
+        <div className="text-center py-8 sm:py-12">
+          <p className="text-sm sm:text-base text-muted-foreground">No services found for this platform.</p>
         </div>
       )}
     </>
@@ -299,40 +305,40 @@ const Services = () => {
 
   return (
     user ? <DashboardLayout> 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Services</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">Services</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Browse our social media promotion services.
           </p>
         </div>
 
         <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
-          <div className="flex justify-between items-center">
-            <TabsList>
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="facebook">Facebook</TabsTrigger>
-              <TabsTrigger value="instagram">Instagram</TabsTrigger>
-              <TabsTrigger value="twitter">Twitter</TabsTrigger>
-              <TabsTrigger value="tiktok">TikTok</TabsTrigger>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+            <TabsList className={`${isMobile ? 'w-full grid grid-cols-5' : ''}`}>
+              <TabsTrigger value="all" className={`${isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
+              <TabsTrigger value="facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
+              <TabsTrigger value="instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
+              <TabsTrigger value="twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
+              <TabsTrigger value="tiktok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
             </TabsList>
-            <div className="text-sm text-muted-foreground">
-              Wallet Balance: <span className="font-semibold text-primary">${walletBalance.toFixed(2)}</span>
+            <div className="text-xs sm:text-sm text-muted-foreground">
+              Wallet Balance: <span className="font-semibold text-primary">₦{walletBalance.toFixed(2)}</span>
             </div>
           </div>
-          <TabsContent value="all" className="mt-6">
+          <TabsContent value="all" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="facebook" className="mt-6">
+          <TabsContent value="facebook" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="instagram" className="mt-6">
+          <TabsContent value="instagram" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="twitter" className="mt-6">
+          <TabsContent value="twitter" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="tiktok" className="mt-6">
+          <TabsContent value="tiktok" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
         </Tabs>
@@ -340,7 +346,7 @@ const Services = () => {
 
       {/* Purchase Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Order Service</DialogTitle>
             <DialogDescription>
@@ -387,7 +393,7 @@ const Services = () => {
             <div className="pt-4 border-t">
               <div className="flex justify-between mb-2">
                 <span>Price per unit:</span>
-                <span>${selectedService?.price.toFixed(2)}</span>
+                <span>₦{selectedService?.price.toFixed(2)}</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span>Quantity:</span>
@@ -396,7 +402,7 @@ const Services = () => {
               <div className="flex justify-between font-bold">
                 <span>Total:</span>
                 <span className="text-primary">
-                  ${selectedService && (selectedService.price * quantity).toFixed(2)}
+                  ₦{selectedService && (selectedService.price * quantity).toFixed(2)}
                 </span>
               </div>
               
@@ -407,7 +413,7 @@ const Services = () => {
               )}
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
             <Button variant="outline" onClick={() => setDialogOpen(false)}>
               Cancel
             </Button>
@@ -426,37 +432,37 @@ const Services = () => {
       </Dialog>
     </DashboardLayout> :
     <Layout>
-      <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Our Services</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+      <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Our Services</h1>
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
             Browse our range of social media promotion services to boost your online presence.
           </p>
         </div>
 
         <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
-          <div className="flex justify-center mb-8">
-            <TabsList>
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="facebook">Facebook</TabsTrigger>
-              <TabsTrigger value="instagram">Instagram</TabsTrigger>
-              <TabsTrigger value="twitter">Twitter</TabsTrigger>
-              <TabsTrigger value="tiktok">TikTok</TabsTrigger>
+          <div className="flex justify-center mb-6 sm:mb-8 overflow-x-auto">
+            <TabsList className={`${isMobile ? 'grid grid-cols-5 w-full' : ''}`}>
+              <TabsTrigger value="all" className={`${isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
+              <TabsTrigger value="facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
+              <TabsTrigger value="instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
+              <TabsTrigger value="twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
+              <TabsTrigger value="tiktok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
             </TabsList>
           </div>
-          <TabsContent value="all" className="mt-6">
+          <TabsContent value="all" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="facebook" className="mt-6">
+          <TabsContent value="facebook" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="instagram" className="mt-6">
+          <TabsContent value="instagram" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="twitter" className="mt-6">
+          <TabsContent value="twitter" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
-          <TabsContent value="tiktok" className="mt-6">
+          <TabsContent value="tiktok" className="mt-4 sm:mt-6">
             <ServiceList />
           </TabsContent>
         </Tabs>

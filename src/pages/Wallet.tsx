@@ -7,6 +7,7 @@ import DashboardLayout from '@/components/DashboardLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { 
   PlusCircle, 
   ArrowUp, 
@@ -29,6 +30,7 @@ const Wallet = () => {
   const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const fetchWalletData = async () => {
@@ -72,10 +74,10 @@ const Wallet = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Wallet</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">Wallet</h1>
+          <p className="text-muted-foreground text-sm sm:text-base">
             Manage your funds and view transaction history.
           </p>
         </div>
@@ -88,7 +90,7 @@ const Wallet = () => {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col items-center space-y-4">
-              <div className="text-4xl font-bold text-primary">${balance.toFixed(2)}</div>
+              <div className="text-3xl sm:text-4xl font-bold text-primary">₦{balance.toFixed(2)}</div>
               <Link to="/wallet/add-funds">
                 <Button className="w-full sm:w-auto">
                   <PlusCircle className="mr-2 h-4 w-4" /> Add Funds
@@ -100,12 +102,12 @@ const Wallet = () => {
 
         {/* Transaction History */}
         <div>
-          <h2 className="text-xl font-semibold mb-4">Transaction History</h2>
+          <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Transaction History</h2>
           <Tabs defaultValue="all">
-            <TabsList className="mb-4">
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="deposit">Deposits</TabsTrigger>
-              <TabsTrigger value="purchase">Purchases</TabsTrigger>
+            <TabsList className="mb-4 w-full sm:w-auto flex">
+              <TabsTrigger value="all" className="flex-1 sm:flex-none">All</TabsTrigger>
+              <TabsTrigger value="deposit" className="flex-1 sm:flex-none">Deposits</TabsTrigger>
+              <TabsTrigger value="purchase" className="flex-1 sm:flex-none">Purchases</TabsTrigger>
             </TabsList>
 
             <TabsContent value="all">
@@ -143,47 +145,47 @@ interface TransactionListProps {
 const TransactionList = ({ transactions, loading }: TransactionListProps) => {
   if (loading) {
     return (
-      <div className="text-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
-        <p className="mt-4 text-muted-foreground">Loading transactions...</p>
+      <div className="text-center py-8 sm:py-12">
+        <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4 text-sm sm:text-base text-muted-foreground">Loading transactions...</p>
       </div>
     );
   }
 
   if (transactions.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-muted-foreground">No transactions found.</p>
+      <div className="text-center py-8 sm:py-12">
+        <p className="text-sm sm:text-base text-muted-foreground">No transactions found.</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {transactions.map((transaction) => (
         <Card key={transaction.id}>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+          <CardContent className="p-3 sm:p-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center space-x-3 sm:space-x-4 mb-2 sm:mb-0">
                 <div className={`p-2 rounded-full ${transaction.type === 'deposit' ? 'bg-green-100' : 'bg-blue-100'}`}>
                   {transaction.type === 'deposit' ? (
-                    <ArrowUp className={`h-5 w-5 ${transaction.type === 'deposit' ? 'text-green-600' : 'text-blue-600'}`} />
+                    <ArrowUp className={`h-4 w-4 sm:h-5 sm:w-5 ${transaction.type === 'deposit' ? 'text-green-600' : 'text-blue-600'}`} />
                   ) : (
-                    <ArrowDown className={`h-5 w-5 ${transaction.type === 'deposit' ? 'text-green-600' : 'text-blue-600'}`} />
+                    <ArrowDown className={`h-4 w-4 sm:h-5 sm:w-5 ${transaction.type === 'deposit' ? 'text-green-600' : 'text-blue-600'}`} />
                   )}
                 </div>
                 <div>
-                  <p className="font-medium">
+                  <p className="font-medium text-sm sm:text-base">
                     {transaction.type === 'deposit' ? 'Wallet Deposit' : 'Service Purchase'}
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     {new Date(transaction.created_at).toLocaleString()}
                   </p>
                 </div>
               </div>
               <div>
-                <p className={`font-semibold text-right ${transaction.type === 'deposit' ? 'text-green-600' : 'text-blue-600'}`}>
-                  {transaction.type === 'deposit' ? '+' : '-'}${transaction.amount.toFixed(2)}
+                <p className={`font-semibold text-right text-sm sm:text-base ${transaction.type === 'deposit' ? 'text-green-600' : 'text-blue-600'}`}>
+                  {transaction.type === 'deposit' ? '+' : '-'}₦{transaction.amount.toFixed(2)}
                 </p>
                 <div className="text-xs text-right mt-1 flex items-center justify-end">
                   {transaction.status === 'pending' && (
