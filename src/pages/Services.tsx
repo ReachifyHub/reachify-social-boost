@@ -285,7 +285,7 @@ const Services = () => {
                   <NairaIcon />
                   {service.price.toFixed(2)}
                 </div>
-                <p className="text-xs text-muted-foreground">per unit</p>
+                <p className="text-xs text-muted-foreground">per 1000</p>
               </CardContent>
               <CardFooter>
                 <Button className="w-full" onClick={() => handlePurchase(service)}>
@@ -315,12 +315,12 @@ const Services = () => {
 
         <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
-            <TabsList className={`${isMobile ? 'w-full grid grid-cols-5' : ''}`}>
-              <TabsTrigger value="all" className={`${isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
-              <TabsTrigger value="Facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
-              <TabsTrigger value="Instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
-              <TabsTrigger value="Twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
-              <TabsTrigger value="TikTok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
+            <TabsList className={`#{isMobile ? 'w-full grid grid-cols-5' : ''}`}>
+              <TabsTrigger value="all" className={`#{isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
+              <TabsTrigger value="Facebook" className={`#{isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
+              <TabsTrigger value="Instagram" className={`#{isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
+              <TabsTrigger value="Twitter" className={`#{isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
+              <TabsTrigger value="TikTok" className={`#{isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
             </TabsList>
             <div className="text-xs sm:text-sm text-muted-foreground">
               Wallet Balance: <span className="font-semibold text-primary">₦{walletBalance.toFixed(2)}</span>
@@ -350,7 +350,7 @@ const Services = () => {
           <DialogHeader>
             <DialogTitle>Order Service</DialogTitle>
             <DialogDescription>
-              {selectedService && `You are about to order ${selectedService.name}`}
+              {selectedService && `You are about to order #{selectedService.name}`}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-2">
@@ -372,27 +372,27 @@ const Services = () => {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  onClick={() => setQuantity(Math.max(1, quantity - 1000))}
                 >-</Button>
                 <Input 
                   id="quantity"
                   type="number"
                   min="100"
                   value={quantity}
-                  onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
+                  onChange={(e) => setQuantity(parseInt(e.target.value) || 1000)}
                   className="text-center"
                 />
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={() => setQuantity(quantity + 500)}
                 >+</Button>
               </div>
             </div>
 
             <div className="pt-4 border-t">
               <div className="flex justify-between mb-2">
-                <span>Price per unit:</span>
+                <span>Price per 1000:</span>
                 <span>₦{selectedService?.price.toFixed(2)}</span>
               </div>
               <div className="flex justify-between mb-2">
