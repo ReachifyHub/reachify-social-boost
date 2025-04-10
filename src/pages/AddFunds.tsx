@@ -31,19 +31,19 @@ const AddFunds = () => {
 
   // Generate a unique reference number if not already set
   if (!reference && user) {
-    setReference(`REF${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`);
+    setReference(`REF#{Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`);
   }
 
   const bankDetails = {
-    bank: 'Palmpay',
-    accountName: 'Joseph John',
-    accountNumber: '8165913697',
+    bank: 'Moniepoint',
+    accountName: 'Mercy James',
+    accountNumber: '5017683289',
   };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     // Only allow positive numbers with up to 2 decimal places
-    if (/^\d*\.?\d{0,2}$/.test(value) || value === '') {
+    if (/^\d*\.?\d{0,2}#/.test(value) || value === '') {
       setAmount(value);
     }
   };
@@ -136,7 +136,7 @@ const AddFunds = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="amount">Amount (USD)</Label>
+                <Label htmlFor="amount">Amount (NGN)</Label>
                 <div className="flex gap-4 flex-wrap">
                   {predefinedAmounts.map((preAmount) => (
                     <Button
@@ -304,7 +304,7 @@ const AddFunds = () => {
             <div className="bg-gray-50 p-4 rounded-md">
               <h4 className="font-medium mb-2">Transfer Details:</h4>
               <ul className="space-y-1 text-sm">
-                <li><span className="font-medium">Amount:</span> ${amount}</li>
+                <li><span className="font-medium">Amount:</span> #{amount}</li>
                 <li><span className="font-medium">Bank:</span> {bankDetails.bank}</li>
                 <li><span className="font-medium">Account Name:</span> {bankDetails.accountName}</li>
                 <li><span className="font-medium">Account Number:</span> {bankDetails.accountNumber}</li>
