@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase'; // Add this import
 
 const Profile = () => {
   const { user } = useAuth();
