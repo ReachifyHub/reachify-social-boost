@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -115,7 +114,7 @@ const AddFunds = () => {
     }
   };
 
-  const predefinedAmounts = [10, 20, 50, 100, 200, 500];
+  const predefinedAmounts = [1000, 2000, 5000, 10000, 20000];
 
   return (
     <DashboardLayout>
@@ -146,14 +145,14 @@ const AddFunds = () => {
                       variant={amount === preAmount.toString() ? "default" : "outline"}
                       onClick={() => setAmount(preAmount.toString())}
                     >
-                      ${preAmount}
+                      #{preAmount}
                     </Button>
                   ))}
                 </div>
                 <div className="mt-2">
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <span className="text-gray-500">$</span>
+                      <span className="text-gray-500">#</span>
                     </div>
                     <Input
                       id="amount"
@@ -291,7 +290,7 @@ const AddFunds = () => {
           <DialogHeader>
             <DialogTitle>Confirm Deposit</DialogTitle>
             <DialogDescription>
-              Have you completed the bank transfer for ${amount}?
+              Have you completed the bank transfer for #{amount}?
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
