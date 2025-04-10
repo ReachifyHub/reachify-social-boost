@@ -48,10 +48,10 @@ const NairaIcon = () => (
 );
 
 const platformIcons: Record<string, JSX.Element> = {
-  facebook: <Facebook className="h-5 w-5" />,
-  instagram: <Instagram className="h-5 w-5" />,
-  twitter: <Twitter className="h-5 w-5" />,
-  tiktok: <TikTok />,
+  Facebook: <Facebook className="h-5 w-5" />,
+  Instagram: <Instagram className="h-5 w-5" />,
+  Twitter: <Twitter className="h-5 w-5" />,
+  TikTok: <TikTok />,
 };
 
 interface Service {
