@@ -157,7 +157,7 @@ const Services = () => {
     }
 
     setSelectedService(service);
-    setQuantity(1);
+    setQuantity(1000);
     setLink('');
     setDialogOpen(true);
   };
@@ -315,12 +315,12 @@ const Services = () => {
 
         <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
-            <TabsList className={`#{isMobile ? 'w-full grid grid-cols-5' : ''}`}>
-              <TabsTrigger value="all" className={`#{isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
-              <TabsTrigger value="Facebook" className={`#{isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
-              <TabsTrigger value="Instagram" className={`#{isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
-              <TabsTrigger value="Twitter" className={`#{isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
-              <TabsTrigger value="TikTok" className={`#{isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
+            <TabsList className="flex overflow-x-auto pb-2 gap-1 no-scrollbar">
+            <TabsTrigger value="all" className="px-3 py-1 text-sm">All</TabsTrigger>
+            <TabsTrigger value="Facebook" className="px-3 py-1 text-sm">Facebook</TabsTrigger>
+            <TabsTrigger value="Instagram" className="px-3 py-1 text-sm">Instagram</TabsTrigger>
+            <TabsTrigger value="Twitter" className="px-3 py-1 text-sm">Twitter</TabsTrigger>
+            <TabsTrigger value="TikTok" className="px-3 py-1 text-sm">TikTok</TabsTrigger>
             </TabsList>
             <div className="text-xs sm:text-sm text-muted-foreground">
               Wallet Balance: <span className="font-semibold text-primary">₦{walletBalance.toFixed(2)}</span>
@@ -372,7 +372,7 @@ const Services = () => {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => setQuantity(Math.max(1, quantity - 1000))}
+                  onClick={() => setQuantity(Math.max(1000, quantity - 1000))}
                 >-</Button>
                 <Input 
                   id="quantity"
