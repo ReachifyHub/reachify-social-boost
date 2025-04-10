@@ -31,7 +31,7 @@ const AddFunds = () => {
 
   // Generate a unique reference number if not already set
   if (!reference && user) {
-    setReference(`REF#{Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`);
+    setReference(`REF #{Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`);
   }
 
   const bankDetails = {
