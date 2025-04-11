@@ -38,7 +38,7 @@ const About = () => {
               </div>
               <div className="relative h-56 sm:h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
                 <img
-                  src="https://imgur.com/a/34m6CEE"
+                  src="/favicon.jpg"
                   alt="Team working together"
                   className="w-full h-full object-cover"
                 />
