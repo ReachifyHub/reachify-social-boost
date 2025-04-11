@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -39,7 +38,7 @@ const About = () => {
               </div>
               <div className="relative h-56 sm:h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
                 <img
-                  src="/placeholder.svg"
+                  src="https://imgur.com/a/34m6CEE"
                   alt="Team working together"
                   className="w-full h-full object-cover"
                 />
