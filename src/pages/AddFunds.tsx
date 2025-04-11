@@ -59,7 +59,7 @@ const bankDetails = {
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     // Only allow positive numbers with up to 2 decimal places
-    if (/^\d*\.?\d{0,2}#/.test(value) || value === '') {
+    if (/^\d*\.?\d{0,2}$/.test(value) || value === '') {
       setAmount(value);
     }
   };
@@ -181,7 +181,7 @@ const bankDetails = {
                   </div>
                 </div>
               </div>
-
+              
               <div className="space-y-2">
                 <Label htmlFor="reference">Your Reference Code</Label>
                 <div className="flex">
