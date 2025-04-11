@@ -30,16 +30,32 @@ const AddFunds = () => {
   const navigate = useNavigate();
 
   // Generate a unique reference number if not already set
-  if (!reference && user) {
-    setReference(`REF #{Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`);
-  }
+if (!reference && user) {
+  // Get name from auth.user metadata (works with Google/Github logins too)
+  const userName = user.user_metadata?.full_name || 
+                  user.user_metadata?.name || 
+                  user.user_metadata?.user_name || 
+                  'CUSTOMER';
 
-  const bankDetails = {
-    bank: 'Moniepoint',
-    accountName: 'Mercy James',
-    accountNumber: '5017683289',
-  };
+  // Format the name for reference
+  const namePart = userName
+    .toUpperCase()
+    .replace(/\s+/g, '') // Remove spaces
+    .replace(/[^A-Z]/g, '') // Remove special chars
+    .slice(0, 8); // Limit length
 
+  // Add timestamp for uniqueness (last 4 digits)
+  const timestamp = Date.now().toString().slice(-4);
+  
+  setReference(`${namePart}-${timestamp}`);
+}
+
+const bankDetails = {
+  bank: 'Moniepoint',
+  accountName: 'Mercy James',
+  accountNumber: '5017683289',
+};
+  
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     // Only allow positive numbers with up to 2 decimal places
