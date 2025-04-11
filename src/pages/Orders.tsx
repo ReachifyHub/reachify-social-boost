@@ -1,26 +1,18 @@
-
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import DashboardLayout from '@/components/DashboardLayout';
-import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  ExternalLink,
-  Clock,
-  CheckCircle,
-  AlertTriangle,
-  RotateCw
-} from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { ExternalLink, Clock, CheckCircle, AlertTriangle, RotateCw } from 'lucide-react';
 
 interface Order {
   id: number;
   service_id: number;
   link: string;
   quantity: number;
-  status: string;
+  status?: string;
   created_at: string;
   service: {
     name: string;
@@ -36,43 +28,34 @@ const Orders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      try {
-        if (!user) return;
+      if (!user) return;
 
-        const { data, error } = await supabase
-          .from('orders')
-          .select(`
-            *,
-            service:service_id (
-              name,
-              platform,
-              price
-            )
-          `)
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false });
+      const { data, error } = await supabase
+        .from('orders')
+        .select(`
+          *,
+          service:service_id (
+            name,
+            platform,
+            price
+          )
+        `)
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
 
-        if (error) {
-          console.error('Error fetching orders:', error);
-          return;
-        }
-
+      if (error) {
+        console.error('Error fetching orders:', error.message);
+      } else {
         setOrders(data || []);
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
       }
+
+      setLoading(false);
     };
 
     fetchOrders();
   }, [user]);
 
-  // Filter orders by status
-  const pendingOrders = orders.filter(order => order.status === 'pending');
-  const processingOrders = orders.filter(order => order.status === 'processing');
-  const completedOrders = orders.filter(order => order.status === 'completed');
-  const cancelledOrders = orders.filter(order => order.status === 'cancelled');
+  const filterOrders = (status: string) => orders.filter(o => o.status === status);
 
   return (
     <DashboardLayout>
@@ -86,7 +69,7 @@ const Orders = () => {
 
         <Tabs defaultValue="all">
           <TabsList>
-            <TabsTrigger value="all">All Orders</TabsTrigger>
+            <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="pending">Pending</TabsTrigger>
             <TabsTrigger value="processing">Processing</TabsTrigger>
             <TabsTrigger value="completed">Completed</TabsTrigger>
@@ -94,43 +77,19 @@ const Orders = () => {
           </TabsList>
 
           <TabsContent value="all" className="mt-6">
-            <OrdersList
-              orders={orders}
-              loading={loading}
-              emptyMessage="You haven't placed any orders yet."
-            />
+            <OrdersList orders={orders} loading={loading} emptyMessage="No orders found." />
           </TabsContent>
-          
           <TabsContent value="pending" className="mt-6">
-            <OrdersList
-              orders={pendingOrders}
-              loading={loading}
-              emptyMessage="No pending orders found."
-            />
+            <OrdersList orders={filterOrders('pending')} loading={loading} emptyMessage="No pending orders." />
           </TabsContent>
-          
           <TabsContent value="processing" className="mt-6">
-            <OrdersList
-              orders={processingOrders}
-              loading={loading}
-              emptyMessage="No processing orders found."
-            />
+            <OrdersList orders={filterOrders('processing')} loading={loading} emptyMessage="No processing orders." />
           </TabsContent>
-          
           <TabsContent value="completed" className="mt-6">
-            <OrdersList
-              orders={completedOrders}
-              loading={loading}
-              emptyMessage="No completed orders found."
-            />
+            <OrdersList orders={filterOrders('completed')} loading={loading} emptyMessage="No completed orders." />
           </TabsContent>
-          
           <TabsContent value="cancelled" className="mt-6">
-            <OrdersList
-              orders={cancelledOrders}
-              loading={loading}
-              emptyMessage="No cancelled orders found."
-            />
+            <OrdersList orders={filterOrders('cancelled')} loading={loading} emptyMessage="No cancelled orders." />
           </TabsContent>
         </Tabs>
       </div>
@@ -164,16 +123,11 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'pending':
-        return <Clock className="h-5 w-5 text-yellow-500" />;
-      case 'processing':
-        return <RotateCw className="h-5 w-5 text-blue-500" />;
-      case 'completed':
-        return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case 'cancelled':
-        return <AlertTriangle className="h-5 w-5 text-red-500" />;
-      default:
-        return null;
+      case 'pending': return <Clock className="h-5 w-5 text-yellow-500" />;
+      case 'processing': return <RotateCw className="h-5 w-5 text-blue-500" />;
+      case 'completed': return <CheckCircle className="h-5 w-5 text-green-500" />;
+      case 'cancelled': return <AlertTriangle className="h-5 w-5 text-red-500" />;
+      default: return null;
     }
   };
 
@@ -209,76 +163,73 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
 
   return (
     <div className="space-y-4">
-      {orders.map((order) => (
-        <Card key={order.id}>
-          <CardHeader className="py-4 px-6">
-            <div className="flex flex-wrap justify-between items-start gap-4">
-              <div>
-                <CardTitle className="text-lg">Order #{order.id}</CardTitle>
-                <CardDescription>
-                  Placed on {new Date(order.created_at).toLocaleDateString()}
-                </CardDescription>
-              </div>
-              <div className="flex items-center space-x-2">
-                {getPlatformBadge(order.service.platform)}
-                {getStatusBadge(order.status)}
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="py-0 px-6">
-            <div className="border-t pt-4 pb-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {orders.map((order) => {
+        const status = order.status || 'unknown';
+        return (
+          <Card key={order.id}>
+            <CardHeader className="py-4 px-6">
+              <div className="flex flex-wrap justify-between items-start gap-4">
                 <div>
-                  <h3 className="text-sm font-medium text-muted-foreground mb-1">Service</h3>
-                  <p className="font-medium">{order.service.name}</p>
+                  <CardTitle className="text-lg">Order #{order.id}</CardTitle>
+                  <CardDescription>
+                    Placed on {new Date(order.created_at).toLocaleDateString()}
+                  </CardDescription>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground mb-1">Quantity</h3>
-                  <p className="font-medium">{order.quantity}</p>
+                <div className="flex items-center space-x-2">
+                  {getPlatformBadge(order.service.platform)}
+                  {getStatusBadge(status)}
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground mb-1">Link</h3>
-                  <div className="flex items-center space-x-2">
-                    <p className="font-medium text-sm truncate max-w-[200px]">
-                      {order.link}
-                    </p>
-                    <a
-                      href={order.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:text-primary/80"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
+              </div>
+            </CardHeader>
+            <CardContent className="py-0 px-6">
+              <div className="border-t pt-4 pb-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Service</h3>
+                    <p className="font-medium">{order.service.name}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Quantity</h3>
+                    <p className="font-medium">{order.quantity}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Link</h3>
+                    <div className="flex items-center space-x-2">
+                      <p className="font-medium text-sm truncate max-w-[200px]">{order.link}</p>
+                      <a href={order.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Total Price</h3>
+                    <p className="font-medium">${(order.service.price * order.quantity).toFixed(2)}</p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground mb-1">Total Price</h3>
-                  <p className="font-medium">${(order.service.price * order.quantity).toFixed(2)}</p>
+              </div>
+            </CardContent>
+            <div className="px-6 py-4 bg-gray-50 rounded-b-lg border-t">
+              <div className="flex items-center">
+                {getStatusIcon(status)}
+                <div className="ml-2">
+                  <h3 className="font-medium">
+                    Status: <span className="font-normal">{status.charAt(0).toUpperCase() + status.slice(1)}</span>
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    {status === 'pending' && 'Your order is being reviewed.'}
+                    {status === 'processing' && 'Your order is being processed.'}
+                    {status === 'completed' && 'Your order has been completed.'}
+                    {status === 'cancelled' && 'Your order has been cancelled.'}
+                  </p>
                 </div>
               </div>
             </div>
-          </CardContent>
-          <div className="px-6 py-4 bg-gray-50 rounded-b-lg border-t">
-            <div className="flex items-center">
-              {getStatusIcon(order.status)}
-              <div className="ml-2">
-                <h3 className="font-medium">
-                  Status: <span className="font-normal">{order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
-                </h3>
-                <p className="text-xs text-muted-foreground">
-                  {order.status === 'pending' && 'Your order is being reviewed.'}
-                  {order.status === 'processing' && 'Your order is being processed.'}
-                  {order.status === 'completed' && 'Your order has been completed.'}
-                  {order.status === 'cancelled' && 'Your order has been cancelled.'}
-                </p>
-              </div>
-            </div>
-          </div>
-        </Card>
-      ))}
+          </Card>
+        );
+      })}
     </div>
   );
 };
 
 export default Orders;
+    
