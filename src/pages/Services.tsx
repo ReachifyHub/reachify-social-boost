@@ -157,7 +157,7 @@ const Services = () => {
     }
 
     setSelectedService(service);
-    setQuantity(1000);
+    setQuantity(0);
     setLink('');
     setDialogOpen(true);
   };
@@ -167,7 +167,7 @@ const Services = () => {
     
     const totalCost = (selectedService.price / 1000) * quantity;
     
-    if (walletBalance < totalCost) {
+    if (Number(walletBalance.toFixed(2)) < Number(totalCost.toFixed(2))) {
       toast({
         title: "Insufficient Funds",
         description: "Please add more funds to your wallet to complete this purchase",
