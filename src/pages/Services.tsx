@@ -70,7 +70,7 @@ const Services = () => {
   const [loading, setLoading] = useState(true);
   const [walletBalance, setWalletBalance] = useState(0);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(1000);
   const [link, setLink] = useState('');
   const [purchasing, setPurchasing] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -242,7 +242,7 @@ const Services = () => {
       
       // Close dialog and reset fields
       setDialogOpen(false);
-      setQuantity(1);
+      setQuantity(1000);
       setLink('');
       
       // Navigate to orders page
