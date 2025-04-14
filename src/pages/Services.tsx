@@ -402,11 +402,9 @@ const Services = () => {
                 <span>{quantity}</span>
               </div>
               <div className="flex justify-between font-bold">
-                <span>Total:</span>
                 <span className="text-primary">
-                  ₦{selectedService && (selectedService.price * quantity).toFixed(2)}
+                ₦{selectedService && ((selectedService.price * quantity) / 1000).toFixed(2)}
                 </span>
-              </div>
               
               {selectedService && walletBalance < (selectedService.price * quantity) && (
                 <div className="mt-2 text-sm text-red-500">
