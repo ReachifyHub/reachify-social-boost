@@ -165,7 +165,7 @@ const Services = () => {
   const handleConfirmPurchase = async () => {
     if (!user || !selectedService) return;
     
-    const totalCost = (selectedService.price / 1) * quantity;
+    const totalCost = (selectedService.price * quantity) / 1000;
     
     if (walletBalance < totalCost) {
       toast({
