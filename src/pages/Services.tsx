@@ -157,7 +157,7 @@ const Services = () => {
     }
 
     setSelectedService(service);
-    setQuantity(1000);
+    setQuantity(1);
     setLink('');
     setDialogOpen(true);
   };
@@ -242,7 +242,7 @@ const Services = () => {
       
       // Close dialog and reset fields
       setDialogOpen(false);
-      setQuantity(1000);
+      setQuantity(1);
       setLink('');
       
       // Navigate to orders page
