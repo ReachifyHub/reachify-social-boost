@@ -165,7 +165,7 @@ const Services = () => {
   const handleConfirmPurchase = async () => {
     if (!user || !selectedService) return;
     
-    const totalCost = (selectedService.price * quantity) / 1000;
+    const totalCost = (selectedService.price / 1000) * quantity;
     
     if (walletBalance < totalCost) {
       toast({
@@ -371,7 +371,7 @@ const Services = () => {
               <div className="flex items-center space-x-2">
                 
                  <Button
-                onClick={() => setQuantity(prev => Math.max(1000, Number(prev) - 1000))}
+                onClick={() => setQuantity(prev => Math.max(100, Number(prev) - 100))}
                  >
 
 </Button>
@@ -402,8 +402,9 @@ const Services = () => {
                 <span>{quantity}</span>
               </div>
               <div className="flex justify-between font-bold">
+               
                 <span className="text-primary">
-                ₦{selectedService && ((selectedService.price * quantity) / 1000).toFixed(2)}
+               ₦{selectedService && ((selectedService.price / 1000) * quantity).toFixed(2)}
                 </span>
               
               {selectedService && walletBalance < (selectedService.price * quantity) && (
