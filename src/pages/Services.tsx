@@ -369,14 +369,12 @@ const Services = () => {
             <div className="space-y-2">
               <Label htmlFor="quantity">Quantity</Label>
               <div className="flex items-center space-x-2">
-                // Decrease button
+                
                  <Button
                 onClick={() => setQuantity(prev => Math.max(1000, Number(prev) - 1000))}
                  >
-  -
-</Button>
 
-// Quantity input
+</Button>
 <Input
   id="quantity"
   type="number"
@@ -389,14 +387,14 @@ const Services = () => {
 />                <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => setQuantity(quantity + 500)}
+                  onClick={() => setQuantity(quantity + 100)}
                 >+</Button>
               </div>
             </div>
 
             <div className="pt-4 border-t">
               <div className="flex justify-between mb-2">
-                <span>Price per 1000:</span>
+                <span>Price per 1:</span>
                 <span>₦{selectedService?.price.toFixed(2)}</span>
               </div>
               <div className="flex justify-between mb-2">
