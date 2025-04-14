@@ -157,7 +157,7 @@ const Services = () => {
     }
 
     setSelectedService(service);
-    setQuantity(0);
+    setQuantity(1000);
     setLink('');
     setDialogOpen(true);
   };
