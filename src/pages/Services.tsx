@@ -157,7 +157,7 @@ const Services = () => {
     }
 
     setSelectedService(service);
-    setQuantity(1);
+    setQuantity(1000);
     setLink('');
     setDialogOpen(true);
   };
@@ -165,7 +165,7 @@ const Services = () => {
   const handleConfirmPurchase = async () => {
     if (!user || !selectedService) return;
     
-    const totalCost = (selectedService.price / 1000) * quantity;
+    const totalCost = (selectedService.price / 1) * quantity;
     
     if (walletBalance < totalCost) {
       toast({
@@ -350,7 +350,7 @@ const Services = () => {
           <DialogHeader>
             <DialogTitle>Order Service</DialogTitle>
             <DialogDescription>
-              {selectedService && `You are about to order #{selectedService.name}`}
+              {selectedService && `You are about to order ${selectedService.name}`}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-2">
@@ -382,7 +382,7 @@ const Services = () => {
   value={quantity}
   onChange={(e) => {
     const value = Number(e.target.value);
-    setQuantity(isNaN(value) ? 1000 : value);
+    setQuantity(isNaN(value) ? 1 : value);
   }}
 />                <Button 
                   variant="outline" 
@@ -394,7 +394,7 @@ const Services = () => {
 
             <div className="pt-4 border-t">
               <div className="flex justify-between mb-2">
-                <span>Price per 1:</span>
+                <span>Price per 1000:</span>
                 <span>₦{selectedService?.price.toFixed(2)}</span>
               </div>
               <div className="flex justify-between mb-2">
