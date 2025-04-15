@@ -25,7 +25,9 @@ const Orders = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const NairaIcon = () => (
+  <span className="text-lg font-bold mr-0.5">₦</span>
+);
   useEffect(() => {
     const fetchOrders = async () => {
       if (!user) return;
@@ -185,8 +187,11 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
               <div className="border-t pt-4 pb-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Service</h3>
-                    <p className="font-medium">{order.service.name}</p>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Total Price</h3>
+                    <p className="font-medium flex items-center">
+                    <NairaIcon />
+                    {((order.service.price / 1000) * order.quantity).toFixed(2)}
+                   </p>
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-1">Quantity</h3>
@@ -203,7 +208,7 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-1">Total Price</h3>
-                    <p className="font-medium">${(order.service.price * order.quantity).toFixed(2)}</p>
+                    <p className="font-medium">₦{((order.service.price / 1000) * order.quantity).toFixed(2)}</p>
                   </div>
                 </div>
               </div>
