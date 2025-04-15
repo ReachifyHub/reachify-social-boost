@@ -366,29 +366,32 @@ const Services = () => {
             <div className="space-y-2">
               <Label htmlFor="quantity">Quantity</Label>
               <div className="flex items-center space-x-2">
-                
-                 <Button
-                onClick={() => setQuantity(prev => Math.max(100, Number(prev) - 100))}
-                 >
-
-</Button>
-<Input
-  id="quantity"
-  type="number"
-  min="100"
-  value={quantity}
-  onChange={(e) => {
-    const value = Number(e.target.value);
-    setQuantity(isNaN(value) ? 1 : value);
-  }}
-/>                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => setQuantity(quantity + 100)}
-                >+</Button>
-              </div>
-            </div>
-
+              <Button
+             variant="outline"
+             size="sm"
+             onClick={() => setQuantity(prev => Math.max(100, prev - 100))}
+            disabled={quantity <= 100}
+             >   
+             -
+            </Button>
+           <Input
+          id="quantity"
+          type="number"
+          min="100"
+          value={quantity}
+          onChange={(e) => {
+         const value = Number(e.target.value);
+         setQuantity(isNaN(value) ? 100 : Math.max(100, value));
+           }}
+           />
+         <Button 
+          variant="outline" 
+          size="sm"
+          onClick={() => setQuantity(quantity + 100)}
+           >
+           +
+        </Button>
+         </div>
             <div className="pt-4 border-t">
               <div className="flex justify-between mb-2">
                 <span>Price per 1000:</span>
