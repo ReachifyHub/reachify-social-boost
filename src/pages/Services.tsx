@@ -303,207 +303,174 @@ const Services = () => {
     {user ? (
       <DashboardLayout>
         <div className="space-y-6">
-          {/* ... other content ... */}
-        </div>
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">Services</h1>
-          <p className="text-sm sm:text-base text-muted-foreground">
-            Browse our social media promotion services.
-          </p>
-        </div>
-
-        <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
-            <TabsList className="flex overflow-x-auto pb-2 gap-1 no-scrollbar">
-            <TabsTrigger value="all" className="px-3 py-1 text-sm">All</TabsTrigger>
-            <TabsTrigger value="Facebook" className="px-3 py-1 text-sm">Facebook</TabsTrigger>
-            <TabsTrigger value="Instagram" className="px-3 py-1 text-sm">Instagram</TabsTrigger>
-            <TabsTrigger value="Twitter" className="px-3 py-1 text-sm">Twitter</TabsTrigger>
-            <TabsTrigger value="TikTok" className="px-3 py-1 text-sm">TikTok</TabsTrigger>
-            </TabsList>
-            <div className="text-xs sm:text-sm text-muted-foreground">
-              Wallet Balance: <span className="font-semibold text-primary">₦{walletBalance.toFixed(2)}</span>
-            </div>
+          <div>
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight">Services</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
+              Browse our social media promotion services.
+            </p>
           </div>
-          <TabsContent value="all" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-          <TabsContent value="Facebook" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-          <TabsContent value="Instagram" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-          <TabsContent value="Twitter" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-          <TabsContent value="TikTok" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-        </Tabs>
-      </div>
 
-      {/* Purchase Dialog */}
-<Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-  <DialogContent className="sm:max-w-md">
-    <DialogHeader>
-      <DialogTitle>Order Service</DialogTitle>
-      <DialogDescription>
-        {selectedService && `You are about to order ${selectedService.name}`}
-      </DialogDescription>
-    </DialogHeader>
-    <div className="space-y-4 py-2">
-      <div className="space-y-2">
-        <Label htmlFor="link">Social Media Link</Label>
-        <Input 
-          id="link" 
-          placeholder="https://www.instagram.com/your_post" 
-          value={link}
-          onChange={(e) => setLink(e.target.value)}
-        />
-        <p className="text-xs text-muted-foreground">
-          Enter the link to the profile, post, or video you want to promote
-        </p>
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="quantity">Quantity</Label>
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setQuantity(prev => Math.max(100, prev - 100))}
-            disabled={quantity <= 100}
-          >   
-            -
-          </Button>
-          <Input
-            id="quantity"
-            type="number"
-            min="100"
-            value={quantity}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              setQuantity(isNaN(value) ? 100 : Math.max(100, value));
-            }}
-          />
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => setQuantity(quantity + 100)}
-          >
-            +
-          </Button>
+          <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+              <TabsList className="flex overflow-x-auto pb-2 gap-1 no-scrollbar">
+                <TabsTrigger value="all" className="px-3 py-1 text-sm">All</TabsTrigger>
+                <TabsTrigger value="Facebook" className="px-3 py-1 text-sm">Facebook</TabsTrigger>
+                <TabsTrigger value="Instagram" className="px-3 py-1 text-sm">Instagram</TabsTrigger>
+                <TabsTrigger value="Twitter" className="px-3 py-1 text-sm">Twitter</TabsTrigger>
+                <TabsTrigger value="TikTok" className="px-3 py-1 text-sm">TikTok</TabsTrigger>
+              </TabsList>
+              <div className="text-xs sm:text-sm text-muted-foreground">
+                Wallet Balance: <span className="font-semibold text-primary">₦{walletBalance.toFixed(2)}</span>
+              </div>
+            </div>
+
+            <TabsContent value="all" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+            <TabsContent value="Facebook" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+            <TabsContent value="Instagram" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+            <TabsContent value="Twitter" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+            <TabsContent value="TikTok" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+          </Tabs>
         </div>
-      </div>
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <span>Price per 1000:</span>
-          <span className="font-medium">
-            ₦{selectedService && selectedService.price.toFixed(2)}
-          </span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <span>Total Quantity:</span>
-          <span className="font-medium">{quantity.toLocaleString()}</span>
-        </div>
-        <div className="flex justify-between font-bold">
-          <span>Total Price:</span>
-          <span className="text-primary">
-            ₦{selectedService && ((selectedService.price / 1000) * quantity).toFixed(2)}
-          </span>
-        </div>
-      </div>
-    </div>
-    <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
-      <Button variant="outline" onClick={() => setDialogOpen(false)}>
-        Cancel
-      </Button>
-      <Button 
-        onClick={handleConfirmPurchase} 
-        disabled={
-          purchasing || 
-          !link || 
-          (selectedService && walletBalance < ((selectedService.price / 1000) * quantity))
-            }
-            >
-           {purchasing ? 'Processing...' : 'Confirm Order'}
-            </Button>
-           </DialogFooter>
+
+            {/* Purchase Dialog */}
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Order Service</DialogTitle>
+              <DialogDescription>
+                {selectedService && `You are about to order ${selectedService.name}`}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-2">
+              <div className="space-y-2">
+                <Label htmlFor="link">Social Media Link</Label>
+                <Input 
+                  id="link" 
+                  placeholder="https://www.instagram.com/your_post" 
+                  value={link}
+                  onChange={(e) => setLink(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Enter the link to the profile, post, or video you want to promote
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="quantity">Quantity</Label>
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setQuantity(prev => Math.max(100, prev - 100))}
+                    disabled={quantity <= 100}
+                  >   
+                    -
+                  </Button>
+                  <Input
+                    id="quantity"
+                    type="number"
+                    min="100"
+                    value={quantity}
+                    onChange={(e) => {
+                      const value = Number(e.target.value);
+                      setQuantity(isNaN(value) ? 100 : Math.max(100, value));
+                    }}
+                  />
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setQuantity(quantity + 100)}
+                  >
+                    +
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>Price per 1000:</span>
+                  <span className="font-medium">
+                    ₦{selectedService && selectedService.price.toFixed(2)}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Total Quantity:</span>
+                  <span className="font-medium">{quantity.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between font-bold">
+                  <span>Total Price:</span>
+                  <span className="text-primary">
+                    ₦{selectedService && ((selectedService.price / 1000) * quantity).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
+              <Button variant="outline" onClick={() => setDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleConfirmPurchase} 
+                disabled={
+                  purchasing || 
+                  !link || 
+                  (selectedService && walletBalance < ((selectedService.price / 1000) * quantity))
+                }
+              >
+                {purchasing ? 'Processing...' : 'Confirm Order'}
+              </Button>
+            </DialogFooter>
           </DialogContent>
-           </Dialog>
-              <div className="flex justify-between mb-2">
-                <span>Quantity:</span>
-                <span>{quantity}</span>
-              </div>
-              <div className="flex justify-between font-bold">
-  <span>Total:</span>
-  <span className="text-primary">
-    ₦{selectedService && ((selectedService.price / 1000) * quantity).toFixed(2)}
-  </span>
-
-              </div>
-             {selectedService && walletBalance < ((selectedService.price / 1000) * quantity) && (
-            <div className="mt-2 text-sm text-red-500">
-             You don't have enough funds. Please add more to your wallet.
-            </div>
-             )}
-            </div>
+        </Dialog>
+      </DashboardLayout>
+    ) : (
+      <Layout>
+        <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Our Services</h1>
+            <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
+              Browse our range of social media promotion services to boost your online presence.
+            </p>
           </div>
-          <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
-            <Button variant="outline" onClick={() => setDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button 
-              onClick={handleConfirmPurchase} 
-              disabled={
-              purchasing || 
-              !link || 
-              (selectedService && walletBalance < ((selectedService.price / 1000) * quantity))
-              }
-            >
-              {purchasing ? 'Processing...' : 'Confirm Order'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </DashboardLayout> :
-    <Layout>
-      <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Our Services</h1>
-          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
-            Browse our range of social media promotion services to boost your online presence.
-          </p>
+
+          <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
+            <div className="flex justify-center mb-6 sm:mb-8 overflow-x-auto">
+              <TabsList className={`${isMobile ? 'grid grid-cols-5 w-full' : ''}`}>
+                <TabsTrigger value="all" className={`${isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
+                <TabsTrigger value="Facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
+                <TabsTrigger value="Instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
+                <TabsTrigger value="Twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
+                <TabsTrigger value="TikTok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
+              </TabsList>
+            </div>
+            <TabsContent value="all" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+            <TabsContent value="Facebook" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+            <TabsContent value="Instagram" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+            <TabsContent value="Twitter" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+            <TabsContent value="TikTok" className="mt-4 sm:mt-6">
+              <ServiceList />
+            </TabsContent>
+          </Tabs>
         </div>
-
-        <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
-          <div className="flex justify-center mb-6 sm:mb-8 overflow-x-auto">
-            <TabsList className={`${isMobile ? 'grid grid-cols-5 w-full' : ''}`}>
-              <TabsTrigger value="all" className={`${isMobile ? 'text-xs' : ''}`}>All</TabsTrigger>
-              <TabsTrigger value="Facebook" className={`${isMobile ? 'text-xs' : ''}`}>Facebook</TabsTrigger>
-              <TabsTrigger value="Instagram" className={`${isMobile ? 'text-xs' : ''}`}>Instagram</TabsTrigger>
-              <TabsTrigger value="Twitter" className={`${isMobile ? 'text-xs' : ''}`}>Twitter</TabsTrigger>
-              <TabsTrigger value="TikTok" className={`${isMobile ? 'text-xs' : ''}`}>TikTok</TabsTrigger>
-            </TabsList>
-          </div>
-          <TabsContent value="all" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-          <TabsContent value="Facebook" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-          <TabsContent value="Instagram" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-          <TabsContent value="Twitter" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-          <TabsContent value="TikTok" className="mt-4 sm:mt-6">
-            <ServiceList />
-          </TabsContent>
-        </Tabs>
-      </div>
-    </Layout>
-  );
-};
+      </Layout>
+    )}
+  </>
+);
 
 export default Services;
