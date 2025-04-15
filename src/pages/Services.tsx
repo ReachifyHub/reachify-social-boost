@@ -185,7 +185,7 @@ const Services = () => {
       setDialogOpen(false);
       
       navigate('/wallet/add-funds');
-    } 2000);
+    } 2000)
     
       return;
      }
