@@ -464,7 +464,7 @@ const Services = () => {
               <ServiceList />
             </TabsContent>
             <TabsContent value="TikTok" className="mt-4 sm:mt-6">
-              <ServiceList />
+             <ServiceList />
             </TabsContent>
           </Tabs>
         </div>
@@ -474,3 +474,4 @@ const Services = () => {
 );
 
 export default Services;
+
