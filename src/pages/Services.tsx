@@ -162,17 +162,17 @@ const Services = () => {
     setDialogOpen(true);
   };
 
-  const handleConfirmPurchase = async () => {
+   const handleConfirmPurchase = async () => {
   try {
     const totalCost = (selectedService.price / 1000) * quantity;
     
-    const walletAmount = parseFloat(walletBalance.replace('₦', '').trim());
+    const walletAmount = parseFloat(walletBalance.toString());
     const orderAmount = parseFloat(totalCost.toFixed(2));
 
     console.log('Wallet Amount:', walletAmount);
     console.log('Order Amount:', orderAmount);    
     
-    if (walletBalance < totalCost) {
+    if (walletAmount < orderAmount) {
       toast({
         title: "Insufficient Funds",
         description: "Please add more funds to your wallet to complete this purchase",
@@ -181,7 +181,7 @@ const Services = () => {
       setDialogOpen(false);
       navigate('/wallet/add-funds');
       return;
-    }
+  }
     
     if (!link) {
       toast({
