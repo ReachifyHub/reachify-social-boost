@@ -343,61 +343,93 @@ const Services = () => {
       </div>
 
       {/* Purchase Dialog */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Order Service</DialogTitle>
-            <DialogDescription>
-              {selectedService && `You are about to order ${selectedService.name}`}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-2">
-            <div className="space-y-2">
-              <Label htmlFor="link">Social Media Link</Label>
-              <Input 
-                id="link" 
-                placeholder="https://www.instagram.com/your_post" 
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-              />
-              <p className="text-xs text-muted-foreground">
-                Enter the link to the profile, post, or video you want to promote
-              </p>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="quantity">Quantity</Label>
-              <div className="flex items-center space-x-2">
-              <Button
-             variant="outline"
-             size="sm"
-             onClick={() => setQuantity(prev => Math.max(100, prev - 100))}
+<Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+  <DialogContent className="sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle>Order Service</DialogTitle>
+      <DialogDescription>
+        {selectedService && `You are about to order ${selectedService.name}`}
+      </DialogDescription>
+    </DialogHeader>
+    <div className="space-y-4 py-2">
+      <div className="space-y-2">
+        <Label htmlFor="link">Social Media Link</Label>
+        <Input 
+          id="link" 
+          placeholder="https://www.instagram.com/your_post" 
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+        />
+        <p className="text-xs text-muted-foreground">
+          Enter the link to the profile, post, or video you want to promote
+        </p>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="quantity">Quantity</Label>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setQuantity(prev => Math.max(100, prev - 100))}
             disabled={quantity <= 100}
-             >   
-             -
+          >   
+            -
+          </Button>
+          <Input
+            id="quantity"
+            type="number"
+            min="100"
+            value={quantity}
+            onChange={(e) => {
+              const value = Number(e.target.value);
+              setQuantity(isNaN(value) ? 100 : Math.max(100, value));
+            }}
+          />
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setQuantity(quantity + 100)}
+          >
+            +
+          </Button>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <div className="flex justify-between text-sm">
+          <span>Price per 1000:</span>
+          <span className="font-medium">
+            ₦{selectedService && selectedService.price.toFixed(2)}
+          </span>
+        </div>
+        <div className="flex justify-between text-sm">
+          <span>Total Quantity:</span>
+          <span className="font-medium">{quantity.toLocaleString()}</span>
+        </div>
+        <div className="flex justify-between font-bold">
+          <span>Total Price:</span>
+          <span className="text-primary">
+            ₦{selectedService && ((selectedService.price / 1000) * quantity).toFixed(2)}
+          </span>
+        </div>
+      </div>
+    </div>
+    <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
+      <Button variant="outline" onClick={() => setDialogOpen(false)}>
+        Cancel
+      </Button>
+      <Button 
+        onClick={handleConfirmPurchase} 
+        disabled={
+          purchasing || 
+          !link || 
+          (selectedService && walletBalance < ((selectedService.price / 1000) * quantity))
+            }
+            >
+           {purchasing ? 'Processing...' : 'Confirm Order'}
             </Button>
-           <Input
-          id="quantity"
-          type="number"
-          min="100"
-          value={quantity}
-          onChange={(e) => {
-         const value = Number(e.target.value);
-         setQuantity(isNaN(value) ? 100 : Math.max(100, value));
-           }}
-           />
-         <Button 
-          variant="outline" 
-          size="sm"
-          onClick={() => setQuantity(quantity + 100)}
-           >
-           +
-        </Button>
-         </div>
-            <div className="pt-4 border-t">
-              <div className="flex justify-between mb-2">
-                <span>Price per 1000:</span>
-                <span>₦{selectedService?.price.toFixed(2)}</span>
-              </div>
+           </DialogFooter>
+          </DialogContent>
+           </Dialog>
               <div className="flex justify-between mb-2">
                 <span>Quantity:</span>
                 <span>{quantity}</span>
