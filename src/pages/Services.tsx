@@ -299,9 +299,12 @@ const Services = () => {
   );
 
   return (
-    user ? <DashboardLayout> 
-      <div className="space-y-4 sm:space-y-6">
-        <div>
+  <>
+    {user ? (
+      <DashboardLayout>
+        <div className="space-y-6">
+          {/* ... other content ... */}
+        </div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight">Services</h1>
           <p className="text-sm sm:text-base text-muted-foreground">
             Browse our social media promotion services.
