@@ -206,9 +206,7 @@ const Services = () => {
         link: link,
         quantity: quantity,
         status: 'pending',
-        created_at: "2025-04-15 07:03:33",
-        username: "ReachifyHub"
-      })
+        })
       .select()
       .single();
 
