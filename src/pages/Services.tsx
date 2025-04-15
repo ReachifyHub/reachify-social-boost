@@ -183,9 +183,12 @@ const Services = () => {
         variant: "destructive",
       });
       setDialogOpen(false);
+      
       navigate('/wallet/add-funds');
+    },2000);
+    
       return;
-    }
+     }
 
     if (!link) {
       toast({
