@@ -206,7 +206,7 @@ const Services = () => {
         link: link,
         quantity: quantity,
         status: 'pending',
-        created_at: "2025-04-15 06:43:19",
+        created_at: "2025-04-15 07:03:33",
         username: "ReachifyHub"
       })
       .select()
@@ -403,13 +403,13 @@ const Services = () => {
   <span className="text-primary">
     ₦{selectedService && ((selectedService.price / 1000) * quantity).toFixed(2)}
   </span>
-</div>
-              
-              {selectedService && walletBalance < (selectedService.price * quantity) && (
-                <div className="mt-2 text-sm text-red-500">
-                  You don't have enough funds. Please add more to your wallet.
-                </div>
-              )}
+
+              </div>
+             {selectedService && walletBalance < ((selectedService.price / 1000) * quantity) && (
+            <div className="mt-2 text-sm text-red-500">
+             You don't have enough funds. Please add more to your wallet.
+            </div>
+             )}
             </div>
           </div>
           <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
@@ -419,9 +419,9 @@ const Services = () => {
             <Button 
               onClick={handleConfirmPurchase} 
               disabled={
-                purchasing || 
-                !link || 
-                (selectedService && walletBalance < (selectedService.price * quantity))
+              purchasing || 
+              !link || 
+              (selectedService && walletBalance < ((selectedService.price / 1000) * quantity))
               }
             >
               {purchasing ? 'Processing...' : 'Confirm Order'}
