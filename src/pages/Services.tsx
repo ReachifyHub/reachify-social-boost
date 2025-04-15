@@ -166,12 +166,16 @@ const Services = () => {
   try {
     const totalCost = (selectedService.price / 1000) * quantity;
     
-    const walletAmount = parseFloat(walletBalance.toString());
+    const walletAmount = typeof walletBalance === 'string' 
+      ? parseFloat(walletBalance.replace('₦', '').trim()) 
+      : walletBalance;
+      
     const orderAmount = parseFloat(totalCost.toFixed(2));
 
-    console.log('Wallet Amount:', walletAmount);
-    console.log('Order Amount:', orderAmount);    
-    
+    console.log('Wallet Balance:', walletAmount);
+    console.log('Order Amount:', orderAmount);
+    console.log('Has enough funds:', walletAmount >= orderAmount);
+
     if (walletAmount < orderAmount) {
       toast({
         title: "Insufficient Funds",
@@ -181,88 +185,76 @@ const Services = () => {
       setDialogOpen(false);
       navigate('/wallet/add-funds');
       return;
-  }
-    
+    }
+
     if (!link) {
       toast({
-        title: "Link Required",
+        title: "Link Required", 
         description: "Please enter a valid social media link",
         variant: "destructive",
       });
       return;
     }
-    
-    try {
-      setPurchasing(true);
-      
-      // 1. Create order
-      const { data: orderData, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          user_id: user.id,
-          service_id: selectedService.id,
-          link: link,
-          quantity: quantity,
-          status: 'pending',
-        })
-        .select()
-        .single();
-        
-      if (orderError) {
-        throw orderError;
-      }
-      
-      // 2. Create transaction record
-      const { error: transactionError } = await supabase
-        .from('transactions')
-        .insert({
-          user_id: user.id,
-          amount: totalCost,
-          type: 'purchase',
-        });
-        
-      if (transactionError) {
-        throw transactionError;
-      }
-      
-      // 3. Update wallet balance
-      const newBalance = walletBalance - totalCost;
-      const { error: walletError } = await supabase
-        .from('wallets')
-        .update({ balance: newBalance })
-        .eq('user_id', user.id);
-        
-      if (walletError) {
-        throw walletError;
-      }
-      
-      // Update local wallet balance
-      setWalletBalance(newBalance);
-      
-      // Success message
-      toast({
-        title: "Purchase Successful",
-        description: `You have successfully ordered ${selectedService.name}`,
+
+    setPurchasing(true);
+
+    const { data: orderData, error: orderError } = await supabase
+      .from('orders')
+      .insert({
+        user_id: user.id,
+        service_id: selectedService.id,
+        link: link,
+        quantity: quantity,
+        status: 'pending',
+        created_at: "2025-04-15 06:43:19",
+        username: "ReachifyHub"
+      })
+      .select()
+      .single();
+
+    if (orderError) throw orderError;
+
+    const { error: transactionError } = await supabase
+      .from('transactions')
+      .insert({
+        user_id: user.id,
+        amount: totalCost,
+        type: 'purchase',
       });
-      
-      // Close dialog and reset fields
-      setDialogOpen(false);
-      setQuantity(1000);
-      setLink('');
-      
-      // Navigate to orders page
-      navigate('/orders');
-    } catch (error) {
-      console.error('Error processing purchase:', error);
-      toast({
-        title: "Purchase Failed",
-        description: "There was an error processing your purchase. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setPurchasing(false);
-    }
-  };
+
+    if (transactionError) throw transactionError;
+
+    const newBalance = walletAmount - orderAmount;
+    const { error: walletError } = await supabase
+      .from('wallets')
+      .update({ balance: newBalance })
+      .eq('user_id', user.id);
+
+    if (walletError) throw walletError;
+
+    setWalletBalance(newBalance);
+
+    toast({
+      title: "Purchase Successful",
+      description: `You have successfully ordered ${selectedService.name}`,
+    });
+
+    setDialogOpen(false);
+    setQuantity(1000);
+    setLink('');
+    navigate('/orders');
+
+  } catch (error) {
+    console.error('Error processing purchase:', error);
+    toast({
+      title: "Purchase Failed",
+      description: "There was an error processing your purchase. Please try again.",
+      variant: "destructive",
+    });
+  } finally {
+    setPurchasing(false);
+  }
+};
 
   const ServiceList = () => (
     <>
