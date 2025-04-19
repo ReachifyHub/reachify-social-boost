@@ -183,15 +183,11 @@ const Services = () => {
         variant: "destructive",
       });
       setDialogOpen(false);
-      
       navigate('/wallet/add-funds');
-    } 
-    
       return;
-     }
+    }
 
-    finally {
-       if (!link) {
+    if (!link) {
       toast({
         title: "Link Required", 
         description: "Please enter a valid social media link",
@@ -210,7 +206,7 @@ const Services = () => {
         link: link,
         quantity: quantity,
         status: 'pending',
-        })
+      })
       .select()
       .single();
 
@@ -244,18 +240,17 @@ const Services = () => {
     setDialogOpen(false);
     setQuantity(1000);
     setLink('');
-  try {
-  navigate('/orders');
-} catch (error) {
-  console.error('Error processing purchase:', error);
-  toast({
-    title: "Purchase Failed",
-    description: "There was an error processing your purchase. Please try again.",
-    variant: "destructive",
-  });
-} finally {
-  setPurchasing(false);
-}
+    navigate('/orders');
+  } catch (error) {
+    console.error('Error processing purchase:', error);
+    toast({
+      title: "Purchase Failed",
+      description: "There was an error processing your purchase. Please try again.",
+      variant: "destructive",
+    });
+  } finally {
+    setPurchasing(false);
+  }
 };
 
   const ServiceList = () => (
