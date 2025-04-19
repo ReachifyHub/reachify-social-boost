@@ -243,7 +243,7 @@ const Services = () => {
     setDialogOpen(false);
     setQuantity(1000);
     setLink('');
-    {
+  try {
   navigate('/orders');
 } catch (error) {
     console.error('Error processing purchase:', error);
