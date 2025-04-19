@@ -245,7 +245,7 @@ const Services = () => {
     setLink('');
     {
   navigate('/orders');
-   } catch (error) {
+} catch (error) {
     console.error('Error processing purchase:', error);
     toast({
       title: "Purchase Failed",
