@@ -80,11 +80,13 @@ const About = () => {
                 {/* Team member cards would go here */}
                 <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4"></div>
+                  <img src="https://i.postimg.cc/Mp25R4Zk/photo-1600275669439-14e40452d20b.jpg"/>
                   <h3 className="text-base sm:text-lg font-semibold">Mark Williams</h3>
                   <p className="text-gray-500">Founder & CEO</p>
                 </div>
                 <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4"></div>
+                  <img src="https://i.postimg.cc/qMCQN0TX/photo-1519085360753-af0119f7cbe7.jpg"/>
                   <h3 className="text-base sm:text-lg font-semibold">John Smith</h3>
                   <p className="text-gray-500">CTO</p>
                 </div>
