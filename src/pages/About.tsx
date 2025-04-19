@@ -71,33 +71,42 @@ const About = () => {
             </div>
 
             {/* Team section */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">Our Team</h2>
-              <p className="text-center text-gray-600 max-w-3xl mx-auto mb-6 sm:mb-8">
-                We're a dedicated team of social media experts, marketers, and tech enthusiasts committed to helping you grow your online presence.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                {/* Team member cards would go here */}
-                <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4"></div>
-                  <img src="https://i.postimg.cc/Mp25R4Zk/photo-1600275669439-14e40452d20b.jpg"/>
-                  <h3 className="text-base sm:text-lg font-semibold">Mark Williams</h3>
-                  <p className="text-gray-500">Founder & CEO</p>
-                </div>
-                <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4"></div>
-                  <img src="https://i.postimg.cc/qMCQN0TX/photo-1519085360753-af0119f7cbe7.jpg"/>
-                  <h3 className="text-base sm:text-lg font-semibold">John Smith</h3>
-                  <p className="text-gray-500">CTO</p>
-                </div>
-                <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4"></div>
-                  <h3 className="text-base sm:text-lg font-semibold">Lisa Johnson</h3>
-                  <p className="text-gray-500">Head of Marketing</p>
-                </div>
-              </div>
-            </div>
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+  {/* Team member cards */}
+  <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
+    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4 overflow-hidden">
+      <img 
+        src="https://i.postimg.cc/Mp25R4Zk/photo-1600275669439-14e40452d20b.jpg" 
+        alt="Mark Williams" 
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <h3 className="text-base sm:text-lg font-semibold">Mark Williams</h3>
+    <p className="text-gray-500">Founder & CEO</p>
+  </div>
+  <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
+    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4 overflow-hidden">
+      <img 
+        src="https://i.postimg.cc/qMCQN0TX/photo-1519085360753-af0119f7cbe7.jpg" 
+        alt="John Smith" 
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <h3 className="text-base sm:text-lg font-semibold">John Smith</h3>
+    <p className="text-gray-500">CTO</p>
+  </div>
+  <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
+    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4 overflow-hidden">
+      <img 
+        src="https://i.postimg.cc/placeholder-image.jpg" 
+        alt="Lisa Johnson" 
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <h3 className="text-base sm:text-lg font-semibold">Lisa Johnson</h3>
+    <p className="text-gray-500">Head of Marketing</p>
+  </div>
+</div>
             {/* Contact CTA */}
             <div className="bg-primary bg-opacity-5 p-6 sm:p-8 rounded-xl text-center">
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Have Questions?</h2>
