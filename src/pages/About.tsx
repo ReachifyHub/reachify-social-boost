@@ -38,7 +38,7 @@ const About = () => {
               </div>
               <div className="relative h-56 sm:h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
                 <img
-                  src="/favicon.jpg"
+                  src="https://i.postimg.cc/Y9n8WC08/premium-photo-1661310029767-e77bd6ef118e.jpg"
                   alt="Team working together"
                   className="w-full h-full object-cover"
                 />
@@ -80,7 +80,7 @@ const About = () => {
                 {/* Team member cards would go here */}
                 <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 mx-auto mb-3 sm:mb-4"></div>
-                  <h3 className="text-base sm:text-lg font-semibold">Jane Doe</h3>
+                  <h3 className="text-base sm:text-lg font-semibold">Mark Williams</h3>
                   <p className="text-gray-500">Founder & CEO</p>
                 </div>
                 <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
