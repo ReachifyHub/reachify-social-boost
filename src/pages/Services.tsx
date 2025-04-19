@@ -191,7 +191,7 @@ const Services = () => {
      }
 
     finally {
-       if (!link} {
+       if (!link) {
       toast({
         title: "Link Required", 
         description: "Please enter a valid social media link",
