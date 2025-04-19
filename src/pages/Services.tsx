@@ -185,12 +185,13 @@ const Services = () => {
       setDialogOpen(false);
       
       navigate('/wallet/add-funds');
-    } 2000;
+    } 
     
       return;
      }
 
-    finally {!link} {
+    finally {
+       if (!link} {
       toast({
         title: "Link Required", 
         description: "Please enter a valid social media link",
