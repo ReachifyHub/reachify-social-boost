@@ -146,35 +146,40 @@ const Services = () => {
   };
 
   const handlePurchase = (service: Service) => {
-    if (!user) {
-      toast({
-        title: "Authentication Required",
-        description: "Please log in to purchase services",
-        variant: "destructive",
-      });
-      navigate('/login');
-      return;
-    }
+  if (!user) {
+    toast({
+      title: "Authentication Required",
+      description: "Please log in to purchase services",
+      variant: "destructive",
+    });
+    navigate('/login');
+    return;
+  }
 
-    setSelectedService(service);
-    setQuantity(1000);
-    setLink('');
-    setDialogOpen(true);
-  };
+  setSelectedService(service);
+  setQuantity(1000);
+  setLink('');
+  setDialogOpen(true);
+};
 
-   const handleConfirmPurchase = async () => {
+const handleConfirmPurchase = async () => {
+  if (!selectedService || !user) {
+    toast({
+      title: "Error",
+      description: "Service or user information is missing",
+      variant: "destructive",
+    });
+    return;
+  }
+
   try {
     const totalCost = (selectedService.price / 1000) * quantity;
-    
-    const walletAmount = typeof walletBalance === 'string' 
-      ? parseFloat(walletBalance.replace('₦', '').trim()) 
-      : walletBalance;
-      
-    const orderAmount = parseFloat(totalCost.toFixed(2));
 
-    console.log('Wallet Balance:', walletAmount);
-    console.log('Order Amount:', orderAmount);
-    console.log('Has enough funds:', walletAmount >= orderAmount);
+    const walletAmount = typeof walletBalance === 'string'
+      ? parseFloat(walletBalance.replace('₦', '').trim())
+      : walletBalance;
+
+    const orderAmount = parseFloat(totalCost.toFixed(2));
 
     if (walletAmount < orderAmount) {
       toast({
@@ -187,9 +192,9 @@ const Services = () => {
       return;
     }
 
-    if (!link) {
+    if (!link.trim()) {
       toast({
-        title: "Link Required", 
+        title: "Link Required",
         description: "Please enter a valid social media link",
         variant: "destructive",
       });
@@ -198,6 +203,7 @@ const Services = () => {
 
     setPurchasing(true);
 
+    // Create order
     const { data: orderData, error: orderError } = await supabase
       .from('orders')
       .insert({
@@ -210,8 +216,9 @@ const Services = () => {
       .select()
       .single();
 
-    if (orderError) throw orderError;
+    if (orderError) throw new Error(orderError.message);
 
+    // Create transaction
     const { error: transactionError } = await supabase
       .from('transactions')
       .insert({
@@ -220,15 +227,16 @@ const Services = () => {
         type: 'purchase',
       });
 
-    if (transactionError) throw transactionError;
+    if (transactionError) throw new Error(transactionError.message);
 
+    // Update wallet balance
     const newBalance = walletAmount - orderAmount;
     const { error: walletError } = await supabase
       .from('wallets')
       .update({ balance: newBalance })
       .eq('user_id', user.id);
 
-    if (walletError) throw walletError;
+    if (walletError) throw new Error(walletError.message);
 
     setWalletBalance(newBalance);
 
@@ -237,6 +245,7 @@ const Services = () => {
       description: `You have successfully ordered ${selectedService.name}`,
     });
 
+    // Reset state and navigate
     setDialogOpen(false);
     setQuantity(1000);
     setLink('');
@@ -253,51 +262,51 @@ const Services = () => {
   }
 };
 
-  const ServiceList = () => (
-    <>
-      {loading ? (
-        <div className="text-center py-8 sm:py-12">
-          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-sm sm:text-base text-muted-foreground">Loading services...</p>
-        </div>
-      ) : filteredServices.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {filteredServices.map((service) => (
-            <Card key={service.id} className="card-hover">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base sm:text-lg">{service.name}</CardTitle>
-                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gray-100 flex items-center justify-center">
-                    {platformIcons[service.platform]}
-                  </div>
+const ServiceList = () => (
+  <>
+    {loading ? (
+      <div className="text-center py-8 sm:py-12">
+        <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4 text-sm sm:text-base text-muted-foreground">Loading services...</p>
+      </div>
+    ) : filteredServices.length > 0 ? (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {filteredServices.map((service) => (
+          <Card key={service.id} className="card-hover">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base sm:text-lg">{service.name}</CardTitle>
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gray-100 flex items-center justify-center">
+                  {platformIcons[service.platform]}
                 </div>
-                <CardDescription>{service.platform.charAt(0).toUpperCase() + service.platform.slice(1)}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs sm:text-sm text-gray-600 min-h-[40px] sm:min-h-[60px]">{service.description}</p>
-                <div className="mt-3 sm:mt-4 flex items-center text-xl sm:text-2xl font-bold text-primary">
-                  <NairaIcon />
-                  {service.price.toFixed(2)}
-                </div>
-                <p className="text-xs text-muted-foreground">per 1000</p>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full" onClick={() => handlePurchase(service)}>
-                  Order Now
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <div className="text-center py-8 sm:py-12">
-          <p className="text-sm sm:text-base text-muted-foreground">No services found for this platform.</p>
-        </div>
-      )}
-    </>
-  );
+              </div>
+              <CardDescription>{service.platform.charAt(0).toUpperCase() + service.platform.slice(1)}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-xs sm:text-sm text-gray-600 min-h-[40px] sm:min-h-[60px]">{service.description}</p>
+              <div className="mt-3 sm:mt-4 flex items-center text-xl sm:text-2xl font-bold text-primary">
+                <NairaIcon />
+                {service.price.toFixed(2)}
+              </div>
+              <p className="text-xs text-muted-foreground">per 1000</p>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" onClick={() => handlePurchase(service)}>
+                Order Now
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+    ) : (
+      <div className="text-center py-8 sm:py-12">
+        <p className="text-sm sm:text-base text-muted-foreground">No services found for this platform.</p>
+      </div>
+    )}
+  </>
+);
 
-  return (
+return (
   <>
     {user ? (
       <DashboardLayout>
@@ -341,7 +350,7 @@ const Services = () => {
           </Tabs>
         </div>
 
-            {/* Purchase Dialog */}
+        {/* Purchase Dialog */}
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
@@ -353,9 +362,9 @@ const Services = () => {
             <div className="space-y-4 py-2">
               <div className="space-y-2">
                 <Label htmlFor="link">Social Media Link</Label>
-                <Input 
-                  id="link" 
-                  placeholder="https://www.instagram.com/your_post" 
+                <Input
+                  id="link"
+                  placeholder="https://www.instagram.com/your_post"
                   value={link}
                   onChange={(e) => setLink(e.target.value)}
                 />
@@ -369,9 +378,9 @@ const Services = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setQuantity(prev => Math.max(100, prev - 100))}
+                    onClick={() => setQuantity((prev) => Math.max(100, prev - 100))}
                     disabled={quantity <= 100}
-                  >   
+                  >
                     -
                   </Button>
                   <Input
@@ -384,8 +393,8 @@ const Services = () => {
                       setQuantity(isNaN(value) ? 100 : Math.max(100, value));
                     }}
                   />
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     onClick={() => setQuantity(quantity + 100)}
                   >
@@ -416,11 +425,11 @@ const Services = () => {
               <Button variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button 
-                onClick={handleConfirmPurchase} 
+              <Button
+                onClick={handleConfirmPurchase}
                 disabled={
-                  purchasing || 
-                  !link || 
+                  purchasing ||
+                  !link ||
                   (selectedService && walletBalance < ((selectedService.price / 1000) * quantity))
                 }
               >
@@ -463,7 +472,7 @@ const Services = () => {
               <ServiceList />
             </TabsContent>
             <TabsContent value="TikTok" className="mt-4 sm:mt-6">
-             <ServiceList />
+              <ServiceList />
             </TabsContent>
           </Tabs>
         </div>
