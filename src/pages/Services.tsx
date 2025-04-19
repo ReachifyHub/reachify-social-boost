@@ -246,15 +246,15 @@ const Services = () => {
   try {
   navigate('/orders');
 } catch (error) {
-    console.error('Error processing purchase:', error);
-    toast({
-      title: "Purchase Failed",
-      description: "There was an error processing your purchase. Please try again.",
-      variant: "destructive",
-    });
-  } finally {
-    setPurchasing(false);
-  }
+  console.error('Error processing purchase:', error);
+  toast({
+    title: "Purchase Failed",
+    description: "There was an error processing your purchase. Please try again.",
+    variant: "destructive",
+  });
+} finally {
+  setPurchasing(false);
+}
 };
 
   const ServiceList = () => (
