@@ -167,7 +167,10 @@ const Services = () => {
     
     const totalCost = (selectedService.price/1000) * quantity;
     
-    if (walletBalance < totalCost) {
+    const walletBalanceNumber = parseFloat(walletBalance.toFixed(2));
+const totalCostRounded = parseFloat(totalCost.toFixed(2));
+
+    if (walletBalanceNumber < totalCostRounded) {
       toast({
         title: "Insufficient Funds",
         description: "Please add more funds to your wallet to complete this purchase",
