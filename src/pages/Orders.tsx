@@ -25,9 +25,7 @@ const Orders = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
-  const NairaIcon = () => (
-  <span className="text-lg font-bold mr-0.5">₦</span>
-);
+
   useEffect(() => {
     const fetchOrders = async () => {
       if (!user) return;
@@ -184,35 +182,32 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
               </div>
             </CardHeader>
             <CardContent className="py-0 px-6">
-            <div className="border-t pt-4 pb-2">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-             <div>
-              <h3 className="text-sm font-medium text-muted-foreground mb-1">Service</h3>
-            <p className="font-medium">{order.service.name}</p>
-           </div>
-          <div>
-        <h3 className="text-sm font-medium text-muted-foreground mb-1">Quantity</h3>
-        <p className="font-medium">{order.quantity.toLocaleString()}</p>
-      </div>
-      <div>
-        <h3 className="text-sm font-medium text-muted-foreground mb-1">Link</h3>
-        <div className="flex items-center space-x-2">
-          <p className="font-medium text-sm truncate max-w-[200px]">{order.link}</p>
-          <a href={order.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
-            <ExternalLink className="h-4 w-4" />
-               </a>
+              <div className="border-t pt-4 pb-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Service</h3>
+                    <p className="font-medium">{order.service.name}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Quantity</h3>
+                    <p className="font-medium">{order.quantity}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Link</h3>
+                    <div className="flex items-center space-x-2">
+                      <p className="font-medium text-sm truncate max-w-[200px]">{order.link}</p>
+                      <a href={order.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Total Price</h3>
+                    <p className="font-medium">${(order.service.price * order.quantity).toFixed(2)}</p>
+                  </div>
+                </div>
               </div>
-              </div>
-               <div>
-              <h3 className="text-sm font-medium text-muted-foreground mb-1">Total Price</h3>
-              <p className="font-medium flex items-center">
-              <NairaIcon />
-              {((order.service.price / 1000) * order.quantity).toFixed(2)}
-             </p>
-          </div>
-         </div>
-          </div>
-           </CardContent>
+            </CardContent>
             <div className="px-6 py-4 bg-gray-50 rounded-b-lg border-t">
               <div className="flex items-center">
                 {getStatusIcon(status)}
