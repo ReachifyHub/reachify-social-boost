@@ -69,11 +69,11 @@ const Orders = () => {
 
         <Tabs defaultValue="all">
           <TabsList className="flex overflow-x-auto pb-2 gap-2 no-scrollbar">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="pending">Pending</TabsTrigger>
-            <TabsTrigger value="processing">Processing</TabsTrigger>
-            <TabsTrigger value="completed">Completed</TabsTrigger>
-            <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
+            <TabsTrigger value="all" className="text-xs sm:text-sm">All</TabsTrigger>
+<TabsTrigger value="pending" className="text-xs sm:text-sm">Pending</TabsTrigger>
+<TabsTrigger value="processing" className="text-xs sm:text-sm">Processing</TabsTrigger>
+<TabsTrigger value="completed" className="text-xs sm:text-sm">Completed</TabsTrigger>
+<TabsTrigger value="cancelled" className="text-xs sm:text-sm">Cancelled</TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="mt-6">
@@ -168,7 +168,7 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
         return (
           <Card key={order.id}>
             <CardHeader className="py-4 px-6">
-              <div className="flex flex-wrap justify-between items-start gap-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                 <div>
                   <CardTitle className="text-lg">Order #{order.id}</CardTitle>
                   <CardDescription>
