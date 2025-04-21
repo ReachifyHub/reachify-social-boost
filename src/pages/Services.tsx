@@ -435,7 +435,7 @@ const totalCostRounded = parseFloat(totalCost.toFixed(2));
       </Dialog>
     </DashboardLayout> :
     <Layout>
-      <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Our Services</h1>
           <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
