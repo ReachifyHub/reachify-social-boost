@@ -68,7 +68,7 @@ const Orders = () => {
         </div>
 
         <Tabs defaultValue="all">
-          <TabsList className="flex overflow-x-auto pb-2 gap-2 no-scrollbar">
+          <TabsList className="flex overflow-x-auto whitespace-nowrap pb-2 gap-2 no-scrollbar">
             <TabsTrigger value="all" className="text-xs sm:text-sm">All</TabsTrigger>
 <TabsTrigger value="pending" className="text-xs sm:text-sm">Pending</TabsTrigger>
 <TabsTrigger value="processing" className="text-xs sm:text-sm">Processing</TabsTrigger>
