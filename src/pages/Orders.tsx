@@ -192,7 +192,10 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
             </CardHeader>
             <CardContent className="py-0 px-6">
               <div className="border-t pt-4 pb-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="w-full max-w-full">
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+   </div>
+ </div>
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-1">Service</h3>
                     <p className="font-medium">{order.service.name}</p>
