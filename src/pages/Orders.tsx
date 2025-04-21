@@ -78,11 +78,11 @@ const Orders = () => {
 
         <Tabs defaultValue="all">
           <TabsList className="flex overflow-x-auto whitespace-nowrap pb-2 gap-2 no-scrollbar">
-            <TabsTrigger value="all" className="text-xs sm:text-sm">All</TabsTrigger>
-<TabsTrigger value="pending" className="text-xs sm:text-sm">Pending</TabsTrigger>
-<TabsTrigger value="processing" className="text-xs sm:text-sm">Processing</TabsTrigger>
-<TabsTrigger value="completed" className="text-xs sm:text-sm">Completed</TabsTrigger>
-<TabsTrigger value="cancelled" className="text-xs sm:text-sm">Cancelled</TabsTrigger>
+            <TabsTrigger value="all" className="px-2 text-xs sm:text-sm">All</TabsTrigger>
+<TabsTrigger value="pending" className="px-2 text-xs sm:text-sm">Pending</TabsTrigger>
+<TabsTrigger value="processing" className="px-2 text-xs sm:text-sm">Processing</TabsTrigger>
+<TabsTrigger value="completed" className="px-2 text-xs sm:text-sm">Completed</TabsTrigger>
+<TabsTrigger value="cancelled" className="px-2 text-xs sm:text-sm">Cancelled</TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="mt-6">
