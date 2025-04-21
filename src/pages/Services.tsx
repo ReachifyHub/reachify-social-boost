@@ -425,7 +425,7 @@ const totalCostRounded = parseFloat(totalCost.toFixed(2));
               disabled={
                 purchasing || 
                 !link || 
-                (selectedService && walletBalance < (selectedService.price * quantity))
+                (selectedService && walletBalance < ((selectedService.price/1000) * quantity))
               }
             >
               {purchasing ? 'Processing...' : 'Confirm Order'}
