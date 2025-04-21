@@ -409,7 +409,7 @@ const totalCostRounded = parseFloat(totalCost.toFixed(2));
                 </span>
               </div>
               
-              {selectedService && walletBalance < (selectedService.price * quantity) && (
+              {selectedService && walletBalance < ((selectedService.price/1000) * quantity) && (
                 <div className="mt-2 text-sm text-red-500">
                   You don't have enough funds. Please add more to your wallet.
                 </div>
