@@ -6,6 +6,15 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ExternalLink, Clock, CheckCircle, AlertTriangle, RotateCw } from 'lucide-react';
+const isValidUrl = (url: string): boolean => {
+  try {
+    const parsedUrl = new URL(url);
+    // Allow only HTTP and HTTPS protocols
+    return ['http:', 'https:'].includes(parsedUrl.protocol);
+  } catch (error) {
+    return false; // Invalid URL
+  }
+};
 
 interface Order {
   id: number;
