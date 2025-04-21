@@ -193,14 +193,20 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
                     <p className="font-medium">{order.quantity}</p>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Link</h3>
-                    <div className="flex items-center space-x-2">
-                      <p className="font-medium text-sm truncate max-w-[300px] sm:max-w-[400px]">{order.link}</p>
-                      <a href={order.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </div>
-                  </div>
+  <h3 className="text-sm font-medium text-muted-foreground mb-1">Link</h3>
+  <div className="flex items-center space-x-2">
+    <div className="overflow-hidden">
+      <p className="truncate max-w-[300px] sm:max-w-[400px]">{order.link}</p>
+    </div>
+    {isValidUrl(order.link) ? (
+      <a href={order.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
+        <ExternalLink className="h-4 w-4" />
+      </a>
+    ) : (
+      <span className="text-red-500 text-sm">Invalid URL</span>
+    )}
+</div>
+ </div>
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-1">Total Price</h3>
                     <p className="font-medium">${(order.service.price * order.quantity).toFixed(2)}</p>
