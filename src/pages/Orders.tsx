@@ -68,7 +68,7 @@ const Orders = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-4 sm:space-y-6 px-4 sm:px-6">
+      <div className="space-y-4 sm:space-y-6 px-4 sm:px-6 w-full max-w-full overflow-x-hidden">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Orders</h1>
           <p className="text-muted-foreground">
