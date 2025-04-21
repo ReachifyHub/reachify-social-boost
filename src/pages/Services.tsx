@@ -319,11 +319,11 @@ const totalCostRounded = parseFloat(totalCost.toFixed(2));
         <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
             <TabsList className="flex overflow-x-auto pb-2 gap-1 no-scrollbar">
-            <TabsTrigger value="all" className="px-3 py-1 text-sm">All</TabsTrigger>
-            <TabsTrigger value="Facebook" className="px-3 py-1 text-sm">Facebook</TabsTrigger>
-            <TabsTrigger value="Instagram" className="px-3 py-1 text-sm">Instagram</TabsTrigger>
-            <TabsTrigger value="Twitter" className="px-3 py-1 text-sm">Twitter</TabsTrigger>
-            <TabsTrigger value="TikTok" className="px-3 py-1 text-sm">TikTok</TabsTrigger>
+            <TabsTrigger value="all" className="px-3 py-1 text-xs sm:text-sm">All</TabsTrigger>
+<TabsTrigger value="Facebook" className="px-3 py-1 text-xs sm:text-sm">Facebook</TabsTrigger>
+<TabsTrigger value="Instagram" className="px-3 py-1 text-xs sm:text-sm">Instagram</TabsTrigger>
+<TabsTrigger value="Twitter" className="px-3 py-1 text-xs sm:text-sm">Twitter</TabsTrigger>
+<TabsTrigger value="TikTok" className="px-3 py-1 text-xs sm:text-sm">TikTok</TabsTrigger>
             </TabsList>
             <div className="text-xs sm:text-sm text-muted-foreground">
               Wallet Balance: <span className="font-semibold text-primary">₦{walletBalance.toFixed(2)}</span>
