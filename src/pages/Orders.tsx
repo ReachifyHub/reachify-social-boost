@@ -68,7 +68,7 @@ const Orders = () => {
         </div>
 
         <Tabs defaultValue="all">
-          <TabsList>
+          <TabsList className="flex overflow-x-auto pb-2 gap-2 no-scrollbar">
             <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="pending">Pending</TabsTrigger>
             <TabsTrigger value="processing">Processing</TabsTrigger>
@@ -183,7 +183,7 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
             </CardHeader>
             <CardContent className="py-0 px-6">
               <div className="border-t pt-4 pb-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-1">Service</h3>
                     <p className="font-medium">{order.service.name}</p>
