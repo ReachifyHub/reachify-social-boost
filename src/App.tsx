@@ -3,13 +3,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useAuth } from "@/contexts/AuthContext";
 
 import Index from "./pages/Index";
-import LandingPage from "./pages/LandingPage"; // Import the new landing page
+import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
@@ -24,6 +25,21 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Auth redirect component to handle automatic redirects
+const AuthRedirect = () => {
+  const { user, loading } = useAuth();
+  
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+  
+  return user ? <Navigate to="/dashboard" replace /> : <LandingPage />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
@@ -33,9 +49,11 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
+              {/* Root path with auto-redirect */}
+              <Route path="/" element={<AuthRedirect />} />
+              
               {/* Public Routes */}
-              <Route path="/" element={<LandingPage />} /> {/* Changed to LandingPage */}
-              <Route path="/home" element={<Index />} /> {/* Original homepage now available at /home */}
+              <Route path="/home" element={<Index />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/services" element={<Services />} />

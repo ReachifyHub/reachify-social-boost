@@ -5,17 +5,18 @@ import { useAuth } from '@/contexts/AuthContext';
 
 type ProtectedRouteProps = {
   children: ReactNode;
+  redirectPath?: string;
 };
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ children, redirectPath = '/login' }: ProtectedRouteProps) => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading && !user) {
-      navigate('/login');
+      navigate(redirectPath);
     }
-  }, [user, loading, navigate]);
+  }, [user, loading, navigate, redirectPath]);
 
   if (loading) {
     return (

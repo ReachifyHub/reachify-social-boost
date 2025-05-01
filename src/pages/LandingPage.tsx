@@ -98,7 +98,7 @@ const LandingPage = () => {
               <div className="relative">
                 <div className="w-[450px] h-[450px] bg-white/10 backdrop-blur-sm rounded-full"></div>
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-                  <img src="https://i.imgur.com/S256lQZ.png" alt="Social Media Dashboard" className="w-[380px] rounded-xl shadow-xl" />
+                  <img src="/images/dashboard-preview.png" alt="Social Media Dashboard" className="w-[380px] rounded-xl shadow-xl" />
                 </div>
               </div>
             </div>
@@ -111,10 +111,10 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-sm font-medium text-gray-500 uppercase mb-6">Trusted by users on these platforms</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-            <img src="https://i.imgur.com/jIxLPYy.png" alt="Instagram" className="h-8 opacity-70" />
-            <img src="https://i.imgur.com/Y8TzYgY.png" alt="Facebook" className="h-8 opacity-70" />
-            <img src="https://i.imgur.com/rdP92bB.png" alt="TikTok" className="h-8 opacity-70" />
-            <img src="https://i.imgur.com/z1Qmbge.png" alt="Twitter" className="h-8 opacity-70" />
+            <img src="/images/instagram-logo.png" alt="Instagram" className="h-8 opacity-70" />
+            <img src="/images/facebook-logo.png" alt="Facebook" className="h-8 opacity-70" />
+            <img src="/images/tiktok-logo.png" alt="TikTok" className="h-8 opacity-70" />
+            <img src="/images/twitter-logo.png" alt="Twitter" className="h-8 opacity-70" />
           </div>
         </div>
       </section>
@@ -361,7 +361,7 @@ const LandingPage = () => {
                 </p>
                 <div className="flex items-center">
                   <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden">
-                    <img src="https://i.imgur.com/JFHjdNr.jpg" alt="User" className="h-full w-full object-cover" />
+                    <img src="/images/avatar-1.jpg" alt="User" className="h-full w-full object-cover" />
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">Chioma A.</p>
@@ -383,7 +383,7 @@ const LandingPage = () => {
                 </p>
                 <div className="flex items-center">
                   <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden">
-                    <img src="https://i.imgur.com/Tlr4N5P.jpg" alt="User" className="h-full w-full object-cover" />
+                    <img src="/images/avatar-2.jpg" alt="User" className="h-full w-full object-cover" />
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">Oluwaseun K.</p>
@@ -405,7 +405,7 @@ const LandingPage = () => {
                 </p>
                 <div className="flex items-center">
                   <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden">
-                    <img src="https://i.imgur.com/yHvJbAC.jpg" alt="User" className="h-full w-full object-cover" />
+                    <img src="/images/avatar-3.jpg" alt="User" className="h-full w-full object-cover" />
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">Emeka J.</p>
