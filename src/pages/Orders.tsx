@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
@@ -6,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ExternalLink, Clock, CheckCircle, AlertTriangle, RotateCw } from 'lucide-react';
+
 const isValidUrl = (url: string): boolean => {
   try {
     const parsedUrl = new URL(url);
@@ -79,10 +81,10 @@ const Orders = () => {
         <Tabs defaultValue="all">
           <TabsList className="flex overflow-x-auto whitespace-nowrap pb-2 gap-2 no-scrollbar">
             <TabsTrigger value="all" className="px-2 text-xs sm:text-sm">All</TabsTrigger>
-<TabsTrigger value="pending" className="px-2 text-xs sm:text-sm">Pending</TabsTrigger>
-<TabsTrigger value="processing" className="px-2 text-xs sm:text-sm">Processing</TabsTrigger>
-<TabsTrigger value="completed" className="px-2 text-xs sm:text-sm">Completed</TabsTrigger>
-<TabsTrigger value="cancelled" className="px-2 text-xs sm:text-sm">Cancelled</TabsTrigger>
+            <TabsTrigger value="pending" className="px-2 text-xs sm:text-sm">Pending</TabsTrigger>
+            <TabsTrigger value="processing" className="px-2 text-xs sm:text-sm">Processing</TabsTrigger>
+            <TabsTrigger value="completed" className="px-2 text-xs sm:text-sm">Completed</TabsTrigger>
+            <TabsTrigger value="cancelled" className="px-2 text-xs sm:text-sm">Cancelled</TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="mt-6">
@@ -192,10 +194,7 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
             </CardHeader>
             <CardContent className="py-0 px-6">
               <div className="border-t pt-4 pb-2">
-                <div className="w-full max-w-full">
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-   </div>
- </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-1">Service</h3>
                     <p className="font-medium">{order.service.name}</p>
@@ -205,23 +204,23 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
                     <p className="font-medium">{order.quantity}</p>
                   </div>
                   <div>
-  <h3 className="text-sm font-medium text-muted-foreground mb-1">Link</h3>
-  <div className="flex items-center space-x-2">
-    <div className="overflow-hidden">
-      <p className="truncate max-w-[300px] sm:max-w-[400px]">{order.link}</p>
-    </div>
-    {isValidUrl(order.link) ? (
-      <a href={order.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
-        <ExternalLink className="h-4 w-4" />
-      </a>
-    ) : (
-      <span className="text-red-500 text-sm">Invalid URL</span>
-    )}
-</div>
- </div>
+                    <h3 className="text-sm font-medium text-muted-foreground mb-1">Link</h3>
+                    <div className="flex items-center space-x-2">
+                      <div className="overflow-hidden">
+                        <p className="truncate max-w-[300px] sm:max-w-[400px]">{order.link}</p>
+                      </div>
+                      {isValidUrl(order.link) ? (
+                        <a href={order.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      ) : (
+                        <span className="text-red-500 text-sm">Invalid URL</span>
+                      )}
+                    </div>
+                  </div>
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-1">Total Price</h3>
-                    <p className="font-medium">${(order.service.price * order.quantity).toFixed(2)}</p>
+                    <p className="font-medium">₦{(order.service.price * order.quantity).toFixed(2)}</p>
                   </div>
                 </div>
               </div>
@@ -250,4 +249,3 @@ const OrdersList = ({ orders, loading, emptyMessage }: OrdersListProps) => {
 };
 
 export default Orders;
-    
