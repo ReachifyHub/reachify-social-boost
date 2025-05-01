@@ -1,7 +1,7 @@
 
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Check, Star, HelpCircle, CircleDollarSign, Layout, Users, MessageSquareQuestion, ChevronRight } from "lucide-react";
+import { Check, Star, HelpCircle, CircleDollarSign, Layout, Users, MessageSquareQuote, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -228,7 +228,7 @@ const LandingPage = () => {
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900">Starter</h3>
                 <div className="mt-4 flex items-baseline">
-                  <span className="text-3xl sm:text-4xl font-extrabold">₦1,500</span>
+                  <span className="text-3xl sm:text-4xl font-extrabold">₦2,500</span>
                   <span className="ml-1 text-gray-500">/package</span>
                 </div>
                 <p className="mt-5 text-gray-500">Perfect for beginners looking to boost their social presence.</p>
@@ -264,7 +264,7 @@ const LandingPage = () => {
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900">Professional</h3>
                 <div className="mt-4 flex items-baseline">
-                  <span className="text-3xl sm:text-4xl font-extrabold">₦5,000</span>
+                  <span className="text-3xl sm:text-4xl font-extrabold">₦7,500</span>
                   <span className="ml-1 text-gray-500">/package</span>
                 </div>
                 <p className="mt-5 text-gray-500">Ideal for content creators and small businesses.</p>
@@ -299,7 +299,7 @@ const LandingPage = () => {
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900">Enterprise</h3>
                 <div className="mt-4 flex items-baseline">
-                  <span className="text-3xl sm:text-4xl font-extrabold">₦15,000</span>
+                  <span className="text-3xl sm:text-4xl font-extrabold">₦20,000</span>
                   <span className="ml-1 text-gray-500">/package</span>
                 </div>
                 <p className="mt-5 text-gray-500">Comprehensive solution for influencers and businesses.</p>
