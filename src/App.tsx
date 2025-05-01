@@ -9,6 +9,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 import Index from "./pages/Index";
+import LandingPage from "./pages/LandingPage"; // Import the new landing page
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
@@ -33,7 +34,8 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<LandingPage />} /> {/* Changed to LandingPage */}
+              <Route path="/home" element={<Index />} /> {/* Original homepage now available at /home */}
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/services" element={<Services />} />

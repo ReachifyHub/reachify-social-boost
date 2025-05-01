@@ -18,6 +18,7 @@ export type Database = {
           service_id: number
           status: string
           user_id: string
+          username: string | null
         }
         Insert: {
           created_at?: string
@@ -27,6 +28,7 @@ export type Database = {
           service_id: number
           status?: string
           user_id: string
+          username?: string | null
         }
         Update: {
           created_at?: string
@@ -36,6 +38,7 @@ export type Database = {
           service_id?: number
           status?: string
           user_id?: string
+          username?: string | null
         }
         Relationships: [
           {
@@ -79,6 +82,8 @@ export type Database = {
           amount: number
           created_at: string
           id: number
+          reference: string | null
+          status: string | null
           type: string
           user_id: string
         }
@@ -86,6 +91,8 @@ export type Database = {
           amount: number
           created_at?: string
           id?: number
+          reference?: string | null
+          status?: string | null
           type: string
           user_id: string
         }
@@ -93,6 +100,8 @@ export type Database = {
           amount?: number
           created_at?: string
           id?: number
+          reference?: string | null
+          status?: string | null
           type?: string
           user_id?: string
         }
