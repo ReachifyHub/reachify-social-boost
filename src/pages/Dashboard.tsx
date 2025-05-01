@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -99,7 +100,7 @@ const Dashboard = () => {
               <Wallet className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">#{walletBalance.toFixed(2)}</div>
+              <div className="text-2xl font-bold">₦{walletBalance.toFixed(2)}</div>
               <p className="text-xs text-muted-foreground mt-1">
                 <Link to="/wallet/add-funds" className="text-primary inline-flex items-center">
                   Add funds <ArrowUpRight className="ml-1 h-3 w-3" />
@@ -180,7 +181,7 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div className={`font-semibold ${transaction.type === 'deposit' ? 'text-green-600' : 'text-red-600'}`}>
-                        {transaction.type === 'deposit' ? '+' : '-'}${transaction.amount.toFixed(2)}
+                        {transaction.type === 'deposit' ? '+' : '-'}₦{transaction.amount.toFixed(2)}
                       </div>
                     </div>
                   ))}

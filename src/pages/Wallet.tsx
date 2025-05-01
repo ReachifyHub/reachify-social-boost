@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useIsMobile } from '@/hooks/use-mobile';
+import NairaIcon from '@/components/NairaIcon';
 import { 
   PlusCircle, 
   ArrowUp, 
@@ -90,7 +91,9 @@ const Wallet = () => {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col items-center space-y-4">
-              <div className="text-3xl sm:text-4xl font-bold text-primary">₦{balance.toFixed(2)}</div>
+              <div className="text-3xl sm:text-4xl font-bold text-primary">
+                <NairaIcon />{balance.toFixed(2)}
+              </div>
               <Link to="/wallet/add-funds">
                 <Button className="w-full sm:w-auto">
                   <PlusCircle className="mr-2 h-4 w-4" /> Add Funds
@@ -185,7 +188,7 @@ const TransactionList = ({ transactions, loading }: TransactionListProps) => {
               </div>
               <div>
                 <p className={`font-semibold text-right text-sm sm:text-base ${transaction.type === 'deposit' ? 'text-green-600' : 'text-blue-600'}`}>
-                  {transaction.type === 'deposit' ? '+' : '-'}₦{transaction.amount.toFixed(2)}
+                  {transaction.type === 'deposit' ? '+' : '-'}<NairaIcon />{transaction.amount.toFixed(2)}
                 </p>
                 <div className="text-xs text-right mt-1 flex items-center justify-end">
                   {transaction.status === 'pending' && (

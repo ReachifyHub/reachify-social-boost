@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 import { Facebook, Instagram, Twitter, DollarSign } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import NairaIcon from '@/components/NairaIcon';
 import {
   Dialog,
   DialogContent,
@@ -40,11 +41,6 @@ const TikTok = () => (
     <path d="M9 0h6v12h-6z" />
     <path d="M15 2a4 4 0 0 0 4 4V0h-4z" />
   </svg>
-);
-
-// Custom Naira icon component
-const NairaIcon = () => (
-  <span className="text-lg font-bold mr-0.5">₦</span>
 );
 
 const platformIcons: Record<string, JSX.Element> = {

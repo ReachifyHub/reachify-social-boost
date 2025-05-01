@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { AlertCircle, Copy, CheckCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import NairaIcon from '@/components/NairaIcon';
 import {
   Dialog,
   DialogContent,
@@ -30,31 +31,31 @@ const AddFunds = () => {
   const navigate = useNavigate();
 
   // Generate a unique reference number if not already set
-if (!reference && user) {
-  // Get name from auth.user metadata (works with Google/Github logins too)
-  const userName = user.user_metadata?.full_name || 
-                  user.user_metadata?.name || 
-                  user.user_metadata?.user_name || 
-                  'CUSTOMER';
+  if (!reference && user) {
+    // Get name from auth.user metadata (works with Google/Github logins too)
+    const userName = user.user_metadata?.full_name || 
+                    user.user_metadata?.name || 
+                    user.user_metadata?.user_name || 
+                    'CUSTOMER';
 
-  // Format the name for reference
-  const namePart = userName
-    .toUpperCase()
-    .replace(/\s+/g, '') // Remove spaces
-    .replace(/[^A-Z]/g, '') // Remove special chars
-    .slice(0, 8); // Limit length
+    // Format the name for reference
+    const namePart = userName
+      .toUpperCase()
+      .replace(/\s+/g, '') // Remove spaces
+      .replace(/[^A-Z]/g, '') // Remove special chars
+      .slice(0, 8); // Limit length
 
-  // Add timestamp for uniqueness (last 4 digits)
-  const timestamp = Date.now().toString().slice(-4);
-  
-  setReference(`${namePart}-${timestamp}`);
-}
+    // Add timestamp for uniqueness (last 4 digits)
+    const timestamp = Date.now().toString().slice(-4);
+    
+    setReference(`${namePart}-${timestamp}`);
+  }
 
-const bankDetails = {
-  bank: 'Moniepoint',
-  accountName: 'Mercy James',
-  accountNumber: '5017683289',
-};
+  const bankDetails = {
+    bank: 'Moniepoint',
+    accountName: 'Mercy James',
+    accountNumber: '5017683289',
+  };
   
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -161,14 +162,14 @@ const bankDetails = {
                       variant={amount === preAmount.toString() ? "default" : "outline"}
                       onClick={() => setAmount(preAmount.toString())}
                     >
-                      #{preAmount}
+                      <NairaIcon />{preAmount}
                     </Button>
                   ))}
                 </div>
                 <div className="mt-2">
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <span className="text-gray-500">#</span>
+                      <NairaIcon />
                     </div>
                     <Input
                       id="amount"
@@ -306,7 +307,7 @@ const bankDetails = {
           <DialogHeader>
             <DialogTitle>Confirm Deposit</DialogTitle>
             <DialogDescription>
-              Have you completed the bank transfer for #{amount}?
+              Have you completed the bank transfer for <NairaIcon />{amount}?
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
@@ -320,7 +321,7 @@ const bankDetails = {
             <div className="bg-gray-50 p-4 rounded-md">
               <h4 className="font-medium mb-2">Transfer Details:</h4>
               <ul className="space-y-1 text-sm">
-                <li><span className="font-medium">Amount:</span> #{amount}</li>
+                <li><span className="font-medium">Amount:</span> <NairaIcon />{amount}</li>
                 <li><span className="font-medium">Bank:</span> {bankDetails.bank}</li>
                 <li><span className="font-medium">Account Name:</span> {bankDetails.accountName}</li>
                 <li><span className="font-medium">Account Number:</span> {bankDetails.accountNumber}</li>
